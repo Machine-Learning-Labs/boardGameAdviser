@@ -74,8 +74,7 @@ function Status(CONSTANTS, Utils, $http, $q) {
 
     $http({
       method: 'GET',
-      //url: 'http://www.mordorgames.es/datos/dataSet.json'
-      url: 'https://api.twitter.com/1.1/trends/available.json'
+      url: CONSTANTS.URL_REMOTE_TRAINING_SET
     })
       .then(function successCallback(response) {
         defer.resolve(response.data);
