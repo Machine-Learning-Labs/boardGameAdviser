@@ -18,7 +18,7 @@
         "text": "¿Te gustan los sudokus?",
         "replies": [
           {
-            "label": "si",
+            "label": "Sí",
             "value": "3"
           },
           {
@@ -106,6 +106,7 @@
       "name": "Carcassonne Colinas y ovejas",
       "prize": "18.00",
       "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/164-carcassonne-colinas-y-ovejas-8436017221916.html",
+      "description": "bla bla bla",
       "minAge": "8",
       "minPlayers": "2",
       "maxPlayers": "6",
@@ -120,6 +121,7 @@
       "name": "Alhambra Big Box",
       "prize": "89.95",
       "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/138-alhambra-big-box-4010350603772.html",
+      "description": "bla bla bla",
       "minAge": "8",
       "minPlayers": "2",
       "maxPlayers": "8",
@@ -134,6 +136,7 @@
       "name": "Catan",
       "prize": "39.00",
       "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/27-catan-8436017220100.html",
+      "description": "bla bla bla",
       "minAge": "10",
       "minPlayers": "3",
       "maxPlayers": "4",
@@ -148,6 +151,7 @@
       "name": "Mysterium",
       "prize": "39.95",
       "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/276-mysterium-3558380030751.html",
+      "description": "bla bla bla",
       "minAge": "10",
       "minPlayers": "2",
       "maxPlayers": "7",
@@ -162,6 +166,7 @@
       "name": "Blood Rage",
       "prize": "79.95",
       "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/278-blood-rage-8435407607057.html",
+      "description": "bla bla bla",
       "minAge": "14",
       "minPlayers": "2",
       "maxPlayers": "4",
@@ -176,6 +181,7 @@
       "name": "Cyclades",
       "prize": "49.95",
       "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/277-cyclades-3760146642010.html",
+      "description": "bla bla bla",
       "minAge": "14",
       "minPlayers": "2",
       "maxPlayers": "5",

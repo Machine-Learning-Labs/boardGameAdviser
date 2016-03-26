@@ -3,33 +3,64 @@
 
   <ion-content class="padding" on-swipe-right="" on-swipe-left="">
 
-    <div class="card">
+    <div class="card" ng-repeat="item in result.alternatives">
 
-      <div class="item item-avatar">
+      <div class="item item-avatar" >
 
-        <h2>vm.result.name</h2>
-        <p>vm.result.prize</p>
+        <h2>{{ item.name }} </h2>
+        <p> {{ item.prize }} </p>
 
       </div>
 
       <div class="item item-body">
-        <img class="full-image" src="delorean.jpg">
-        <p>
-          Alhambra es un juego de mesa de Riogrande Games, recomendado a partir de los 8 años.
-          El número de jugadores oscila entre los 2 y 6.
-        </p>
-        <p>
-          <a href="#" class="subdued">1 Like</a>
-          <a href="#" class="subdued">5 Comments</a>
-        </p>
-      </div>
+        <!-- <img class="full-image" src="delorean.jpg"> -->
 
-      <div class="row">
-        <div class="col">
-          <button class="button button-block icon-left ion-bag">Ver ficha</button>
-        </div>
+        <blockquote>
+          {{item.description}}
+        </blockquote>
+
+        <ul>
+          <li>Edad mínima: {{ item.minAge }}</li>
+          <li>Jugadores: {{ item.minPlayers }} a {{ item.maxPlayers }}</li>
+          <li>Duración: {{ item.duration}}</li>
+          <li>Complejidad: {{ item.complexity}}</li>
+          <li>Tipo: {{ item.type}}</li>
+          <li>Azar: {{ item.luck}}</li>
+
+        </ul>
+
+        <a href="{{ item.url }}" target="_blank" class="button button-block icon-left ion-bag">Ver ficha</a>
+
       </div>
 
     </div>
+
+    <div class="row">
+      <div class="col">
+        <a ng-click="result.reset()" class="button button-full button-assertive">
+          Volver a empezar
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <p>
+          Respuestas dadas: <br/>
+          {{ result.responses }}
+        </p>
+
+        <p>
+          Juegos recomendados por el árbol de decisión: <br/>
+          {{ result.prediction.decisionTreePrediction }}
+        </p>
+        <p>
+          Juegos recomendados por el RandomForest: <br/>
+          {{ result.prediction.randomForestPrediction }}
+        </p>
+      </div>
+    </div>
+
+
   </ion-content>
 </ion-view>

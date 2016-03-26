@@ -40,7 +40,6 @@ function QuestionController(CONSTANTS, Status, $timeout) {
     vm.style = '';
     vm.prematureFinish = false;
     vm.save = save;
-    vm.resolve = resolve;
 
   next();
 
@@ -50,14 +49,10 @@ function QuestionController(CONSTANTS, Status, $timeout) {
     vm.currentQuestion = Status.getQuestion();
   }
 
-  function resolve() {
-
-  }
-
   function save() {
 
     $timeout(function() {
-      
+
       Status.put(vm.currentQuestion.attr, vm.currentQuestion.reply);
       next();
       vm.style = 'animated bounceInRight';
@@ -71,8 +66,29 @@ function QuestionController(CONSTANTS, Status, $timeout) {
 
 }
 
-ResultController.$inject = ['Status'];
-function ResultController(Status) {
+ResultController.$inject = ['Status','$state'];
+function ResultController(Status, $state) {
+
   var vm = this;
+  vm.reset = reset;
+  vm.input = {};
+  vm.prediction = {};
+  vm.alternatives = [];
+
+  Status.predict().then(function(res) {
+
+    vm.responses = Status.responses();
+    vm.prediction = res;
+
+    vm.alternatives = Status.getGame(res.decisionTreePrediction);
+
+  });
+
+  ////////////
+
+  function reset() {
+    Status.clear();
+    $state.go('home');
+  }
 
 }

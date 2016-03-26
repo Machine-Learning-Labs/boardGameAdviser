@@ -17,8 +17,8 @@ function Utils () {
   };
 }
 
-Status.$inject = ['CONSTANTS', 'Utils', '$http', '$q'];
-function Status(CONSTANTS, Utils, $http, $q) {
+Status.$inject = ['CONSTANTS', 'Utils', '$http', '$timeout', '$q'];
+function Status(CONSTANTS, Utils, $http, $timeout, $q) {
 
   // Algorythm Results
   var responses = {};
@@ -34,16 +34,18 @@ function Status(CONSTANTS, Utils, $http, $q) {
   var iaConfig = {
     trainingSet : [],
     categoryAttr: 'id',
-    ignoredAttributes: ['id','name','prize','url']
+    ignoredAttributes: CONSTANTS.ATTR_TO_IGNORE
   };
 
   // Public API here
   var service = {
     start: start,
+    getGame: getGame,
     getQuestion: getQuestion,
     predict: predict,
     put: put,
-    clear: clear
+    clear: clear,
+    responses : getResponses
   };
 
   return service;
@@ -56,7 +58,7 @@ function Status(CONSTANTS, Utils, $http, $q) {
 
         knowledge = data;
         knowledge.keys = _.keys(data.questions);
-        iaConfig.trainingSet = data;
+        iaConfig.trainingSet = data.training;
 
         loadIA();
 
@@ -107,17 +109,27 @@ function Status(CONSTANTS, Utils, $http, $q) {
 
   function predict() {
 
+    var defer = $q.defer();
+
     // Testing Decision Tree and Random Forest
-    var decisionTreePrediction = decisionTree.predict(responses);
-    var randomForestPrediction = randomForest.predict(responses);
+    $timeout(function() {
 
-    console.log(decisionTreePrediction);
-    console.log(randomForestPrediction);
+      var reply = {
+        decisionTreePrediction : decisionTree.predict(responses),
+        randomForestPrediction : randomForest.predict(responses)
+      };
 
-    return {
-      decisionTreePrediction : decisionTreePrediction,
-      randomForestPrediction : randomForestPrediction
-    }
+      defer.resolve(reply);
+
+    }, CONSTANTS.AUTOSEND_SECONDS);
+
+    return defer.promise;
+
+  }
+
+  function getGame(id) {
+
+    return Utils.jmespath.search(knowledge,"training[?id=='"+id+"']");
 
   }
 
@@ -141,6 +153,10 @@ function Status(CONSTANTS, Utils, $http, $q) {
     return reply;
   }
 
+  function getResponses() {
+    return _.clone(responses);
+  }
+
   function put(key,val) {
 
     responses[key] = val;
@@ -148,7 +164,9 @@ function Status(CONSTANTS, Utils, $http, $q) {
   }
 
   function clear () {
+    responses = null;
     responses = {};
+    return _.isNull(responses);
   }
 
 }
