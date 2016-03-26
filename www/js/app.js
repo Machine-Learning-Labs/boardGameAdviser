@@ -38,19 +38,19 @@ angular
 
     .state('home', {
       url: '/home',
-      templateUrl: '../templates/home.html',
+      templateUrl: 'templates/home.html',
       controller: 'HomeController as home'
     })
 
     .state('questions', {
       url: '/questions',
-      templateUrl: '../templates/question.html',
+      templateUrl: 'templates/question.html',
       controller: 'QuestionController as question'
     })
 
     .state('result', {
       url: '/result',
-      templateUrl: '../templates/result.html',
+      templateUrl: 'templates/result.html',
       controller: 'ResultController as result'
     });
 
