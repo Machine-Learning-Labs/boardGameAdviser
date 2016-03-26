@@ -114,6 +114,9 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
     // Testing Decision Tree and Random Forest
     $timeout(function() {
 
+      debugger;
+      //{"duration":"30","complexity":"Baja","atmosphere":"medieval","type":"colaborativo"}
+
       var reply = {
         decisionTreePrediction : decisionTree.predict(responses),
         randomForestPrediction : randomForest.predict(responses)

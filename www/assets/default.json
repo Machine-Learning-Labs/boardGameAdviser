@@ -19,15 +19,15 @@
         "replies": [
           {
             "label": "Sí",
-            "value": "3"
+            "value": "Alta"
           },
           {
             "label": "Un poco",
-            "value": "2"
+            "value": "Media"
           },
           {
             "label": "Nada",
-            "value": "1"
+            "value": "Baja"
           }
         ]
       },
@@ -36,11 +36,15 @@
         "replies": [
           {
             "label": "Sí",
-            "value": "3"
+            "value": "Alta"
           },
           {
-            "label": "No",
-            "value": "1"
+            "label": "Un poco",
+            "value": "Media"
+          },
+          {
+            "label": "Nada",
+            "value": "Baja"
           }
         ]
       }
@@ -71,7 +75,7 @@
       "replies": [
         {
           "label": "Un idiota",
-          "value": "colaborativo"
+          "value": "Colaborativo"
         },
         {
           "label": "Bob",
@@ -162,8 +166,8 @@
       "atmosphere" : "victorian"
     },
     {
-      "id": "8435407607057",
       "name": "Blood Rage",
+      "id": "8435407607057",
       "prize": "79.95",
       "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/278-blood-rage-8435407607057.html",
       "description": "bla bla bla",
