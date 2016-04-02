@@ -1,0 +1,199 @@
+{
+  "questions": {
+    "duration": {
+      "text": "¿Cuánto tiempo tienes para jugar?",
+      "replies": [
+        {
+          "label": "20 minutos",
+          "value": "20"
+        },
+        {
+          "label": "30 minutos",
+          "value": "30"
+        }
+      ]
+    },
+    "complexity": [
+      {
+        "text": "¿Te gustan los sudokus?",
+        "replies": [
+          {
+            "label": "Sí",
+            "value": "Alta"
+          },
+          {
+            "label": "Un poco",
+            "value": "Media"
+          },
+          {
+            "label": "Nada",
+            "value": "Baja"
+          }
+        ]
+      },
+      {
+        "text": "¿Te gustan los juegos complicados?",
+        "replies": [
+          {
+            "label": "Sí",
+            "value": "Alta"
+          },
+          {
+            "label": "Un poco",
+            "value": "Media"
+          },
+          {
+            "label": "Nada",
+            "value": "Baja"
+          }
+        ]
+      }
+    ],
+    "atmosphere": {
+      "text": "¿Qué tipo de novelas te gusta?",
+      "replies": [
+        {
+          "label": "Vampiros",
+          "value": "victorian"
+        },
+        {
+          "label": "Góticas",
+          "value": "victorian"
+        },
+        {
+          "label": "Medievales",
+          "value": "medieval"
+        },
+        {
+          "label": "Futuristas",
+          "value": "fictionScience"
+        }
+      ]
+    },
+    "type": {
+      "text": "¿Quién dijo: 'Grandeza a cualquier coste'?",
+      "replies": [
+        {
+          "label": "Un idiota",
+          "value": "Colaborativo"
+        },
+        {
+          "label": "Bob",
+          "value": "Competitivo"
+        }
+      ]
+    },
+
+    "luck": {
+      "text": "¿Crees en el destino o el karma?",
+      "replies": [
+        {
+          "label": "Sí, vengo de Sol de Luna",
+          "value": "Alto"
+        },
+        {
+          "label": "A veces leo el horóscopo",
+          "value": "Medio"
+        },
+        {
+          "label": "No, nunca",
+          "value": "Bajo"
+        }
+      ]
+    }
+
+  },
+
+  "training": [
+    {
+      "id": "8436017221916",
+      "name": "Carcassonne Colinas y ovejas",
+      "prize": "18.00",
+      "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/164-carcassonne-colinas-y-ovejas-8436017221916.html",
+      "description": "bla bla bla",
+      "minAge": "8",
+      "minPlayers": "2",
+      "maxPlayers": "6",
+      "duration": "Menos de 45 min",
+      "complexity": "Media",
+      "type": "Colaborativo",
+      "luck": "Alto",
+      "atmosphere" : "medieval"
+    },
+    {
+      "id": "4010350603772",
+      "name": "Alhambra Big Box",
+      "prize": "89.95",
+      "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/138-alhambra-big-box-4010350603772.html",
+      "description": "bla bla bla",
+      "minAge": "8",
+      "minPlayers": "2",
+      "maxPlayers": "8",
+      "duration": "Menos de 60 min",
+      "complexity": "Media",
+      "type": "Colaborativo",
+      "luck": "Alto",
+      "atmosphere" : "medieval"
+    },
+    {
+      "id": "8436017220100",
+      "name": "Catan",
+      "prize": "39.00",
+      "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/27-catan-8436017220100.html",
+      "description": "bla bla bla",
+      "minAge": "10",
+      "minPlayers": "3",
+      "maxPlayers": "4",
+      "duration": "Menos de 90 min",
+      "complexity": "Baja",
+      "type": "Competitivo",
+      "luck": "Medio",
+      "atmosphere" : "medieval"
+    },
+    {
+      "id": "3558380030751",
+      "name": "Mysterium",
+      "prize": "39.95",
+      "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/276-mysterium-3558380030751.html",
+      "description": "bla bla bla",
+      "minAge": "10",
+      "minPlayers": "2",
+      "maxPlayers": "7",
+      "duration": "Menos de 45 min",
+      "complexity": "Media",
+      "type": "Competitivo",
+      "luck": "Medio",
+      "atmosphere" : "victorian"
+    },
+    {
+      "name": "Blood Rage",
+      "id": "8435407607057",
+      "prize": "79.95",
+      "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/278-blood-rage-8435407607057.html",
+      "description": "bla bla bla",
+      "minAge": "14",
+      "minPlayers": "2",
+      "maxPlayers": "4",
+      "duration": "Menos de 90 min",
+      "complexity": "Alta",
+      "type": "Competitivo",
+      "luck": "Bajo",
+      "atmosphere" : "fictionScience"
+    },
+    {
+      "id": "3760146642010",
+      "name": "Cyclades",
+      "prize": "49.95",
+      "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/277-cyclades-3760146642010.html",
+      "description": "bla bla bla",
+      "minAge": "14",
+      "minPlayers": "2",
+      "maxPlayers": "5",
+      "duration": "Menos de 90 min",
+      "complexity": "Alta",
+      "type": "Competitivo",
+      "luck": "Bajo",
+      "atmosphere" : "victorian"
+    }
+  ]
+}
