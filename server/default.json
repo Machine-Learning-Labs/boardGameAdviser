@@ -1,7 +1,7 @@
 {
   "questions": {
     "duration": {
-      "text": "¿Cuánto tiempo tienes para jugar?",
+      "text": "-> ¿Cuánto tiempo tienes para jugar?",
       "replies": [
         {
           "label": "20 minutos",
