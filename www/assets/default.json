@@ -1,199 +1,438 @@
 {
   "questions": {
-    "duration": {
-      "text": "¿Cuánto tiempo tienes para jugar?",
+    "complejidad": {
+      "text": "¿Que nivel de complejidad quieres en el juego?",
       "replies": [
         {
-          "label": "20 minutos",
-          "value": "20"
+          "label": "Muy poco, quiero aprender rápido y empezar a jugar ya",
+          "value": 1
         },
         {
-          "label": "30 minutos",
-          "value": "30"
+          "label": "Poco, para que la partida sea rapida",
+          "value": 2
+        },
+        {
+          "label": "Un poco, que tenga algo de chicha",
+          "value": 3
+        },
+        {
+          "label": "Bastante, que tenga muchas opciones de juego",
+          "value": 4
+        },
+        {
+          "label": "Mucho, me encantan los juegos complicados y con alma",
+          "value": 5
         }
       ]
     },
-    "complexity": [
-      {
-        "text": "¿Te gustan los sudokus?",
-        "replies": [
-          {
-            "label": "Sí",
-            "value": "Alta"
-          },
-          {
-            "label": "Un poco",
-            "value": "Media"
-          },
-          {
-            "label": "Nada",
-            "value": "Baja"
-          }
-        ]
-      },
-      {
-        "text": "¿Te gustan los juegos complicados?",
-        "replies": [
-          {
-            "label": "Sí",
-            "value": "Alta"
-          },
-          {
-            "label": "Un poco",
-            "value": "Media"
-          },
-          {
-            "label": "Nada",
-            "value": "Baja"
-          }
-        ]
-      }
-    ],
-    "atmosphere": {
-      "text": "¿Qué tipo de novelas te gusta?",
+    "suerte": {
+      "text": "¿Quieres un juego que tenga azar?",
       "replies": [
         {
-          "label": "Vampiros",
-          "value": "victorian"
+          "label": "No, sin nada",
+          "value": 1
         },
         {
-          "label": "Góticas",
-          "value": "victorian"
+          "label": "Sí, un pequeño toque",
+          "value": 2
         },
         {
-          "label": "Medievales",
+          "label": "Sí, con algo para liarla un poco",
+          "value": 3
+        },
+        {
+          "label": "Si, con bastante",
+          "value": 4
+        },
+        {
+          "label": "Si, con mucho, adoro el azar",
+          "value": 5
+        }
+      ]
+    },
+    "puteo": {
+      "text": "¿Quieres un juego amistoso o de Fastidiar a tu oponente?",
+      "replies": [
+        {
+          "label": "No, sin nada",
+          "value": 1
+        },
+        {
+          "label": "Sí, un pequeño toque",
+          "value": 2
+        },
+        {
+          "label": "Sí, con algo para liarla un poco",
+          "value": 3
+        },
+        {
+          "label": "Si, con bastante",
+          "value": 4
+        },
+        {
+          "label": "Si, con mucho, no se hacen prisioneros!!!",
+          "value": 5
+        }
+      ]
+    },
+    "humor": {
+      "text": "¿Buscas juegos serios o reirte mucho durante la partida?",
+      "replies": [
+        {
+          "label": "Lo prefiero serio, que corra la sangre",
+          "value": 1
+        },
+        {
+          "label": "Un poco de humor estaria bien",
+          "value": 2
+        },
+        {
+          "label": "Que tenga risas, eso siempre es bueno",
+          "value": 3
+        },
+        {
+          "label": "Me encanta la risa, es la mejor medicina",
+          "value": 4
+        },
+        {
+          "label": "Lo quiero para reirme con y de mis oponentes",
+          "value": 5
+        }
+      ]
+    },
+    "educativo": {
+      "text": "¿Quieres que tenga toque educativo el juego?",
+      "replies": [
+        {
+          "label": "No, lo que quiero es jugar",
+          "value": 1
+        },
+        {
+          "label": "Si, me gustaria aprender algo mientras juego, el saber no ocupa lugar",
+          "value": 2
+        }
+      ]
+    },
+    "picaresca": {
+      "text": "¿Quieres que la picardía influya en el juego?",
+      "replies": [
+        {
+          "label": "Nada, juego con niños que no la tienen todavía",
+          "value": 1
+        },
+        {
+          "label": "Un poco, que ya no son tan niños",
+          "value": 2
+        },
+        {
+          "label": "Que tenga algo, asi se trapichea mejor",
+          "value": 3
+        },
+        {
+          "label": "Que tenga bastante, el ñoño no tiene nada que hacer",
+          "value": 4
+        },
+        {
+          "label": "Picaro es mi segundo apellido",
+          "value": 5
+        }
+      ]
+    },
+    "rapidez": {
+      "text": "¿Quieres que cada turno tengas muchas opciones de hacer cosas?",
+      "replies": [
+        {
+          "label": "Si, quero hacer muchas cosas en mi turno",
+          "value": 1
+        },
+        {
+          "label": "Quiero tener bastantes opciones",
+          "value": 2
+        },
+        {
+          "label": "Lo normal, poder decidir entre algunas",
+          "value": 3
+        },
+        {
+          "label": "Que tenca pocas, que la partida sea fluida",
+          "value": 4
+        },
+        {
+          "label": "Solo una y que todo vaya muy rapido",
+          "value": 5
+        }
+      ]
+    },
+
+    "familia": {
+      "text": "¿Con quién sueles jugar?",
+      "replies": [
+        {
+          "label": "Juego con mi pareja.",
+          "value": 1
+        },
+        {
+          "label": "Normalmente con mis amigos.",
+          "value": 2
+        },
+        {
+          "label": "En familia.",
+          "value": 3
+        }
+      ]
+    },
+
+    "rejugabilidad": {
+      "text": "¿El juego es para jugar alguna vez o siempre que puedas?",
+      "replies": [
+        {
+          "label": "Es para jugar solo de vez en cuando",
+          "value": 1
+        },
+        {
+          "label": "Que sea una opción de pasar la tarde",
+          "value": 2
+        },
+        {
+          "label": "Me gusta jugar bastante",
+          "value": 3
+        },
+        {
+          "label": "Siempre que pueda",
+          "value": 4
+        }
+      ]
+    },
+    "duracion": {
+      "text": "¿Cuanto tiempo quieres que dure la partida?",
+      "replies": [
+        {
+          "label": "Muy poco, me gustan las partidas muy rapidas",
+          "value": 10
+        },
+        {
+          "label": "Que no dure demasiado que me aburro",
+          "value": 20
+        },
+        {
+          "label": "Que por lo menos dure media hora",
+          "value": 30
+        },
+        {
+          "label": "Para pasar la tarde con un par de partidas",
+          "value": 60
+        },
+        {
+          "label": "Largas, que me invada la fantasia del juego",
+          "value": 90
+        },
+        {
+          "label": "Quiero pasar toda la tarde con una sola partida",
+          "value": 120
+        }
+      ]
+    },
+
+    "modojuego": {
+      "text": "¿Quieres jugar todos contra el juego?",
+      "replies": [
+        {
+          "label": "No, cada uno por su lado y que gane el mejor",
+          "value": "competitivo"
+        },
+        {
+          "label": "Mitad y mitad a ver que tal",
+          "value": "mixto"
+        },
+        {
+          "label": "Si, a ver si somos capaces",
+          "value": "cooperativo"
+        }
+      ]
+    },
+
+    "tipojuego": {
+      "text": "¿Qué tipo de juego te gusta?",
+      "replies": [
+        {
+          "label": "Que apostar sea la base del juego",
+          "value": "apostar"
+        },
+        {
+          "label": "La gestion de los recursos es mi pasion",
+          "value": "gestion"
+        },
+        {
+          "label": "invadir/pelear, que si no hay sangre me quedo con hambre",
+          "value": "invadir"
+        },
+        {
+          "label": "Soy la reencarnacion de sherlock holmes",
+          "value": "investigar"
+        },
+        {
+          "label": "La imaginacion es la mejor herramienta que tenemos",
+          "value": "imaginar"
+        },
+        {
+          "label": "Quiero practicar la agilidad mental y visual",
+          "value": "agilizar"
+        }
+      ]
+    },
+
+    "minjugadores": {
+      "text": "¿Cuantos jugadores minimo vais a jugar?",
+      "replies": [
+        {
+          "label": "2 jugadores",
+          "value": "2"
+        },
+        {
+          "label": "3 jugadores",
+          "value": "3"
+        },
+        {
+          "label": "4 jugadores",
+          "value": "4"
+        },
+        {
+          "label": "5 jugadores",
+          "value": "5"
+        },
+        {
+          "label": "Muchos, mas de 5",
+          "value": "muchos"
+        }
+      ]
+    },
+    "maxjugadores": {
+      "text": "¿Cuantos jugadores maximo vais a jugar?",
+      "replies": [
+        {
+          "label": "2 jugadores",
+          "value": "2"
+        },
+        {
+          "label": "3 jugadores",
+          "value": "3"
+        },
+        {
+          "label": "4 jugadores",
+          "value": "4"
+        },
+        {
+          "label": "5 jugadores",
+          "value": "5"
+        },
+        {
+          "label": "6 jugadores",
+          "value": "6"
+        },
+        {
+          "label": "Muchos, mas de 6",
+          "value": "muchos"
+        }
+      ]
+    },
+    "minedad": {
+      "text": "¿Para que edad minima quieres el juego?",
+      "replies": [
+        {
+          "label": "Son pequeños, a partir de 4 añitos",
+          "value": "4"
+        },
+        {
+          "label": "Son pequeños pero no tanto, a partir de 6",
+          "value": "6"
+        },
+        {
+          "label": "Ya son mas mayores, a partir de 8",
+          "value": "8"
+        },
+        {
+          "label": "Somos unos jugones, a partir de 10",
+          "value": "10"
+        },
+        {
+          "label": "Busco un juego un poco mas complicado, a partir de 12",
+          "value": "12"
+        },
+        {
+          "label": "Todos somos adultos y lo dificil es nuestra religion",
+          "value": "14"
+        }
+      ]
+    },
+    "atmosfera": {
+      "text": "¿Que ambientacion buscas en los juegos?",
+      "replies": [
+        {
+          "label": "Me pirran los zombies",
+          "value": "zombies"
+        },
+        {
+          "label": "Me va mas la epoca medieval",
           "value": "medieval"
         },
         {
-          "label": "Futuristas",
-          "value": "fictionScience"
+          "label": "Soy un fanatico de la ciencia ficcion",
+          "value": "ciencia"
+        },
+        {
+          "label": "Me encanta la fantasia de cualquier epoca",
+          "value": "fantasia"
+        },
+        {
+          "label": "Me da un poco igual si el juego es bueno",
+          "value": "discard"
         }
       ]
     },
-    "type": {
-      "text": "¿Quién dijo: 'Grandeza a cualquier coste'?",
+    "ocupacion": {
+      "text": "¿Tienes espacio para jugar?",
       "replies": [
         {
-          "label": "Un idiota",
-          "value": "Colaborativo"
+          "label": "Poco, es para una mesa chiquitita",
+          "value": "small"
         },
         {
-          "label": "Bob",
-          "value": "Competitivo"
-        }
-      ]
-    },
-
-    "luck": {
-      "text": "¿Crees en el destino o el karma?",
-      "replies": [
-        {
-          "label": "Sí, vengo de Sol de Luna",
-          "value": "Alto"
+          "label": "Tengo una mesa normal",
+          "value": "normal"
         },
         {
-          "label": "A veces leo el horóscopo",
-          "value": "Medio"
-        },
-        {
-          "label": "No, nunca",
-          "value": "Bajo"
+          "label": "Tengo una mesa grande, me gustan los juegos de mucho despliegue",
+          "value": "large"
         }
       ]
     }
-
   },
-
   "training": [
     {
       "id": "8436017221916",
+      "description": "bla bla bla",
       "name": "Carcassonne Colinas y ovejas",
       "prize": "18.00",
       "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/164-carcassonne-colinas-y-ovejas-8436017221916.html",
-      "description": "bla bla bla",
-      "minAge": "8",
-      "minPlayers": "2",
-      "maxPlayers": "6",
-      "duration": "Menos de 45 min",
-      "complexity": "Media",
-      "type": "Colaborativo",
-      "luck": "Alto",
-      "atmosphere" : "medieval"
-    },
-    {
-      "id": "4010350603772",
-      "name": "Alhambra Big Box",
-      "prize": "89.95",
-      "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/138-alhambra-big-box-4010350603772.html",
-      "description": "bla bla bla",
-      "minAge": "8",
-      "minPlayers": "2",
-      "maxPlayers": "8",
-      "duration": "Menos de 60 min",
-      "complexity": "Media",
-      "type": "Colaborativo",
-      "luck": "Alto",
-      "atmosphere" : "medieval"
-    },
-    {
-      "id": "8436017220100",
-      "name": "Catan",
-      "prize": "39.00",
-      "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/27-catan-8436017220100.html",
-      "description": "bla bla bla",
-      "minAge": "10",
-      "minPlayers": "3",
-      "maxPlayers": "4",
-      "duration": "Menos de 90 min",
-      "complexity": "Baja",
-      "type": "Competitivo",
-      "luck": "Medio",
-      "atmosphere" : "medieval"
-    },
-    {
-      "id": "3558380030751",
-      "name": "Mysterium",
-      "prize": "39.95",
-      "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/276-mysterium-3558380030751.html",
-      "description": "bla bla bla",
-      "minAge": "10",
-      "minPlayers": "2",
-      "maxPlayers": "7",
-      "duration": "Menos de 45 min",
-      "complexity": "Media",
-      "type": "Competitivo",
-      "luck": "Medio",
-      "atmosphere" : "victorian"
-    },
-    {
-      "name": "Blood Rage",
-      "id": "8435407607057",
-      "prize": "79.95",
-      "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/278-blood-rage-8435407607057.html",
-      "description": "bla bla bla",
-      "minAge": "14",
-      "minPlayers": "2",
-      "maxPlayers": "4",
-      "duration": "Menos de 90 min",
-      "complexity": "Alta",
-      "type": "Competitivo",
-      "luck": "Bajo",
-      "atmosphere" : "fictionScience"
-    },
-    {
-      "id": "3760146642010",
-      "name": "Cyclades",
-      "prize": "49.95",
-      "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/277-cyclades-3760146642010.html",
-      "description": "bla bla bla",
-      "minAge": "14",
-      "minPlayers": "2",
-      "maxPlayers": "5",
-      "duration": "Menos de 90 min",
-      "complexity": "Alta",
-      "type": "Competitivo",
-      "luck": "Bajo",
-      "atmosphere" : "victorian"
+
+      "educativo":2,
+      "familia":2,
+      "rejugabilidad":4,
+      "complejidad":3,
+      "humor":1,
+      "picaresca":3,
+      "puteo":2,
+      "rapidez":3,
+      "suerte":5,
+      "duracion":60,
+
+      "modojuego":"competitivo",
+      "tipojuego":"gestion",
+      "atmosfera": "medieval",
+      "maxjugadores":"6",
+      "minjugadores":"2",
+      "minedad":"8",
+      "ocupacion":"normal"
     }
   ]
 }

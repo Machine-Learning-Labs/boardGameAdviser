@@ -1,0 +1,74 @@
+{
+  "questions": {
+
+    // Ejemplo de pregunta con respuestas auto exclusivas (blanco o negro)
+    "familia": {
+      "text": "¿Juegas con la familia?",
+      "replies": [
+        {
+          "label": "Sí, solo juego con mi familia.",
+          "value": "familia"
+        },
+        {
+          "label": "Sí, pero tambien con mis amigos.",
+          "value": "ambos"
+        },
+        {
+          "label": "Juego con cualquiera que quiera jugar conmigo.",
+          "value": "discard"
+        }
+      ]
+    },
+
+    // Ejemplo de pregunta con respuestas que son similares (da igual 1 que 2), cierta flexibilidad
+    "educativo": {
+      "text": "¿Quieres que tenga toque educativo el juego?",
+      "replies": [
+        {
+          "label": "No, lo que quiero es jugar",
+          "value": 1
+        },
+        {
+          "label": "Si tiene algo mejor",
+          "value": 2
+        },
+        {
+          "label": "Si, me gustaria aprender algo mientras juego, el saber no ocupa lugar",
+          "value": 3
+        }
+      ]
+    }
+  },
+
+  "training": [
+    {
+      // ID
+      "id": "8436017221916",
+      "description": "bla bla bla",
+      "name": "Carcassonne Colinas y ovejas",
+      "prize": "18.00",
+      "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/164-carcassonne-colinas-y-ovejas-8436017221916.html",
+
+      // Numéricos
+       "educativo":2,      // 1 a 3
+       "familia":1,        // 1 a 3
+       "rejugabilidad":4,  // 1 a 4
+       "complejidad":3,    // 1 a 5
+       "humor":1,          // 1 a 5
+       "picaresca":3,      // 1 a 5
+       "puteo":2,          // 1 a 5
+       "rapidez":3,        // 1 a 5
+       "suerte":5,         // 1 a 5
+       "duracion":60,      // 10 a 120
+
+      // Literales (discard = no aplica)
+       "modojuego":["competitivo","mixto","cooperativo"],
+       "tipojuego":["apostar","gestion","invadir","investigar","imaginar","agilizar"],
+       "atmosfera": ["zombies", "medieval","ciencia","fantasia","discard"],
+       "maxjugadores":["2", "3","4","5","6","muchos"],
+       "minjugadores":["2", "3","4","5","muchos"],
+       "minedad":["4", "6","8","10","12","14"],
+       "ocupacion":["small", "normal","large"]
+    }
+  ]
+}
