@@ -80,6 +80,10 @@ function ResultController(Status, $state) {
   vm.prediction = {};
   vm.alternatives = [];
 
+  this.goToLink = function (url) {
+    window.open(url,'_system');
+  };
+
   Status.predict().then(function(res) {
 
     vm.responses = Status.responses();
