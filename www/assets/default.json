@@ -108,8 +108,12 @@
           "value": 1
         },
         {
+          "label": "Si tiene algo mejor",
+          "value": "2"
+        },
+        {
           "label": "Si, me gustaria aprender algo mientras juego, el saber no ocupa lugar",
-          "value": 2
+          "value": 3
         }
       ]
     },
