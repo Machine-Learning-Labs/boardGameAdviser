@@ -8,7 +8,12 @@
       <div class="item item-avatar" >
 
         <h2>{{ item.name }} </h2>
-        <p> {{ item.prize }} </p>
+
+        <div class="animate-switch-container" ng-switch on="item.prize">
+          <div ng-switch-when="cheap">Menos de 25€</div>
+          <div ng-switch-when="medium">Entre 25€ y 60€</div>
+          <div ng-switch-default>Más de 60€</div>
+        </div>
 
       </div>
 
@@ -20,16 +25,13 @@
         </blockquote>
 
         <ul>
-          <li>Edad mínima: {{ item.minAge }}</li>
-          <li>Jugadores: {{ item.minPlayers }} a {{ item.maxPlayers }}</li>
-          <li>Duración: {{ item.duration}}</li>
-          <li>Complejidad: {{ item.complexity}}</li>
-          <li>Tipo: {{ item.type}}</li>
+          <li>Edad mínima: {{ item.minedad }}</li>
+          <li>Jugadores: {{ item.minjugadores }} a {{ item.maxjugadores }}</li>
+          <li>Duración: {{ item.duracion}}</li>
           <li>Azar: {{ item.luck}}</li>
-
         </ul>
 
-        <a href="{{ item.url }}" target="_blank" class="button button-block icon-left ion-bag">Ver ficha</a>
+        <a href="#" ng-click="result.goToLink(item.url)" class="button button-block icon-left ion-bag">Ver ficha</a>
 
       </div>
 
