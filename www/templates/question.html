@@ -7,10 +7,7 @@
 
       <div class="item item-text-wrap">
 
-        <p>
-          {{ question.currentQuestion.text }}
-        </p>
-
+        <p><b>{{ question.currentQuestion.text }}</b></p>
         <br/>
 
         <ion-radio ng-repeat="item in question.currentQuestion.replies"
@@ -21,7 +18,6 @@
         </ion-radio>
 
         <div class="row">
-
           <div class="col col-80">
             <progress class="padding" id="progressbar" max="100" value="{{ question.currentQuestion.percent || 0 }}"></progress>
           </div>
@@ -39,9 +35,9 @@
 
     <div class="row" ng-show="question.prematureFinish">
       <div class="col">
-        <a ui-sref="result" class="button button-full button-assertive">
+        <button ui-sref="result" class="button button-block button-assertive">
           ¡Vale ya! Recomiéndame algo
-        </a>
+        </button>
       </div>
     </div>
 

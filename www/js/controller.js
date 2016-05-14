@@ -71,11 +71,12 @@ function QuestionController(CONSTANTS, Status, $state, $timeout) {
 
 }
 
-ResultController.$inject = ['Status','$state'];
-function ResultController(Status, $state) {
+ResultController.$inject = ['Status','Utils','$state'];
+function ResultController(Status, Utils, $state) {
 
   var vm = this;
   vm.reset = reset;
+  vm.Utils = Utils;
   vm.input = {};
   vm.prediction = {};
   vm.alternatives = [];
@@ -86,10 +87,9 @@ function ResultController(Status, $state) {
 
   Status.predict().then(function(res) {
 
-    vm.responses = Status.responses();
-    vm.prediction = res;
-
-    vm.alternatives = Status.getGame(res.decisionTreePrediction);
+    //vm.responses = Status.responses();
+    var games = _.map(res, function(n) { return Status.getGame(n); },vm);
+    vm.alternatives = vm.Utils.lodash.flatten(games);
 
   });
 
@@ -101,3 +101,4 @@ function ResultController(Status, $state) {
   }
 
 }
+

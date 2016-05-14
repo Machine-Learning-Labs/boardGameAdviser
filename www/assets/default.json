@@ -305,13 +305,13 @@
           "value": "5"
         },
         {
-          "label": "Muchos, mas de 5",
+          "label": "Muchos, más de 5",
           "value": "muchos"
         }
       ]
     },
     "maxjugadores": {
-      "text": "¿Cuantos jugadores maximo vais a jugar?",
+      "text": "¿Cuantos jugadores máximo vais a jugar?",
       "replies": [
         {
           "label": "2 jugadores",
@@ -334,7 +334,7 @@
           "value": "6"
         },
         {
-          "label": "Muchos, mas de 6",
+          "label": "Muchos, más de 6",
           "value": "muchos"
         }
       ]
@@ -642,7 +642,7 @@
       "description": "Sencillo pero a la vez completo juego de estrategia, ágil y rápido de jugar. Incluye las expansiones El río y El abad.",
       "name": "Carcassonne",
       "prize": "cheap",
-      "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/",
+      "url": "https://www.mordorgames.es/tienda/juegos-de-mesa/163-carcassonne-8436017222593.html",
 
       "educativo":2,
       "familia":3,
@@ -667,7 +667,7 @@
       "description": "Juego de reflejos para 2 a 8 jugadores de fulminantes reacciones.",
       "name": "Fantasma Blitz",
       "prize": "cheap",
-      "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/",
+      "url": "https://www.mordorgames.es/tienda/juegos-de-mesa/67-fantasma-blitz-8436017220681.html",
 
       "educativo":3,
       "familia":3,

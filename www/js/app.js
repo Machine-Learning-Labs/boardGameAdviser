@@ -9,8 +9,8 @@ angular
 
   .constant('CONSTANTS', {
     NUMBER_OF_TREES: 3,
-    ATTR_TO_IGNORE : ['name','prize', 'url', 'description', 'minAge', 'minPlayers', 'maxPlayers', 'duration'],
-    MIN_PERCENT_VALID: 66,
+    ATTR_TO_IGNORE : ['name','description', 'prize', 'url'],
+    MIN_PERCENT_VALID: 60,
     AUTOSEND_SECONDS: 300,
     URL_REMOTE_TRAINING_SET: 'http://www.mordorgames.es/datos/'
   })

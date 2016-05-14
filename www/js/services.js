@@ -114,15 +114,12 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
     // Testing Decision Tree and Random Forest
     $timeout(function() {
 
-      debugger;
-      //{"duration":"30","complexity":"Baja","atmosphere":"medieval","type":"colaborativo"}
+      var games = [];
+        games.push(decisionTree.predict(responses));
+        games =Utils.lodash.merge(games, Utils.lodash.keys(randomForest.predict(responses)))
 
-      var reply = {
-        decisionTreePrediction : decisionTree.predict(responses),
-        randomForestPrediction : randomForest.predict(responses)
-      };
-
-      defer.resolve(reply);
+      Utils.lodash.uniq(games);
+      defer.resolve(games);
 
     }, CONSTANTS.AUTOSEND_SECONDS);
 
