@@ -46,29 +46,29 @@
       "id": "8436017221916",
       "description": "bla bla bla",
       "name": "Carcassonne Colinas y ovejas",
-      "prize": "18.00",
+      "prize": ["cheap","medium","expensive"],
       "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/164-carcassonne-colinas-y-ovejas-8436017221916.html",
 
       // Numéricos
-       "educativo":2,      // 1 a 3
-       "familia":1,        // 1 a 3
-       "rejugabilidad":4,  // 1 a 4
-       "complejidad":3,    // 1 a 5
-       "humor":1,          // 1 a 5
-       "picaresca":3,      // 1 a 5
-       "puteo":2,          // 1 a 5
-       "rapidez":3,        // 1 a 5
-       "suerte":5,         // 1 a 5
-       "duracion":60,      // 10 a 120
+      "educativo":2,      // 1 a 3
+      "familia":1,        // 1 a 3
+      "adictivo":4,       // 1 a 4
+      "complejidad":3,    // 1 a 5
+      "humor":1,          // 1 a 5
+      "picaresca":3,      // 1 a 5
+      "puteo":2,          // 1 a 5
+      "rapidez":3,        // 1 a 5
+      "suerte":5,         // 1 a 5
+      "duracion":60,      // 10 a 120
 
       // Literales (discard = no aplica)
-       "modojuego":["competitivo","mixto","cooperativo"],
-       "tipojuego":["apostar","gestion","invadir","investigar","imaginar","agilizar"],
-       "atmosfera": ["zombies", "medieval","ciencia","fantasia","discard"],
-       "maxjugadores":["2", "3","4","5","6","muchos"],
-       "minjugadores":["2", "3","4","5","muchos"],
-       "minedad":["4", "6","8","10","12","14"],
-       "ocupacion":["small", "normal","large"]
+      "modojuego":["competitivo","mixto","cooperativo"],
+      "tipojuego":["agilizar", "apostar","gestion","imaginar","invadir","investigar","rolear"],
+      "atmosfera": ["discard", "ciencia", "fantasia","historic", "medieval","zombies","zombies"],
+      "maxjugadores":["2", "3","4","5","6","muchos"],
+      "minjugadores":["2", "3","4","5","muchos"],
+      "minedad":["4", "6","8","10","12","14"],
+      "ocupacion":["small", "normal","large"]
     }
   ]
 }
