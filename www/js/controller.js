@@ -58,10 +58,13 @@ function QuestionController(CONSTANTS, Status, $state, $timeout) {
 
     $timeout(function() {
 
-      Status.put(vm.currentQuestion.attr, vm.currentQuestion.reply);
-      next();
+      if (vm.currentQuestion.reply !==CONSTANTS.KEYWORD_DISCARD) {
+        Status.put(vm.currentQuestion.attr, vm.currentQuestion.reply);
+      }
+
       vm.style = 'animated bounceInRight';
       vm.prematureFinish = (CONSTANTS.MIN_PERCENT_VALID<=vm.currentQuestion.percent);
+      next();
 
     }, CONSTANTS.AUTOSEND_SECONDS);
 

@@ -12,7 +12,8 @@ angular
     ATTR_TO_IGNORE : ['name','description', 'prize', 'url'],
     MIN_PERCENT_VALID: 60,
     AUTOSEND_SECONDS: 300,
-    URL_REMOTE_TRAINING_SET: 'http://www.mordorgames.es/datos/'
+    URL_REMOTE_TRAINING_SET: 'http://www.mordorgames.es/datos/',
+    KEYWORD_DISCARD: 'discard'
   })
 
 .run(function($ionicPlatform) {
