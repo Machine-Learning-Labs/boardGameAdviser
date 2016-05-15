@@ -142,31 +142,31 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
     }, CONSTANTS.AUTOSEND_SECONDS);
 
     return defer.promise;
-
   }
 
   function getGame(id) {
-
     return Utils.jmespath.search(knowledge,"training[?id=='"+id+"']");
-
   }
 
   function getQuestion() {
 
-    var reply = {};
-
-    var previous = Utils.lodash.keys(responses);
+    var position = "minjugadores";
     var options = Utils.lodash.keys(knowledge.questions);
-    var position = Utils.lodash.head(Utils.lodash.difference(options,previous)) || 0;
-    var candidate = knowledge.questions[position];
+    var previous = Utils.lodash.keys(responses);
 
-    if (Utils.lodash.isArray(candidate)) {
-      candidate = Utils.lodash.sample(candidate);
+    switch(previous.length) {
+      case 0: position = "minjugadores"; break;
+      case 1: position = "maxjugadores"; break;
+      case 2: position = "minedad"; break;
+      default: position = Utils.lodash.sample(Utils.lodash.difference(options,previous));
     }
 
-    reply = Utils.lodash.merge(reply,candidate);
-    reply.attr = position;
-    reply.percent = parseInt((previous.length * 100) / options.length);
+    var candidate = candidate = knowledge.questions[position];
+
+    var reply = {};
+      reply = Utils.lodash.merge(reply,candidate);
+      reply.attr = position;
+      reply.percent = parseInt((previous.length * 100) / options.length);
 
     return reply;
   }
