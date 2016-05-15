@@ -1,15 +1,26 @@
 angular
   .module('boardGameAdviser')
   .factory('Utils', Utils)
-  .service('Status', Status);
+  .service('Status', Status)
+  .factory('$exceptionHandler', Errors );
 
-function Utils () {
+Errors.$inject = ['$window'];
+function Errors ($window) {
+
+  return function(exception, cause) {
+
+    $window.location.href = '/';
+    //$injector.get('$state').go('home');
+    //throw exception;
+  };
+}
+
+function Utils() {
 
   var jmespath = window.jmespath;
   var lodash = window._;
-  var dt = window.dt;
 
-  // Public API here
+  var dt = window.dt;
   return {
     jmespath: jmespath,
     lodash: lodash,
@@ -17,6 +28,7 @@ function Utils () {
   };
 }
 
+// Public API here
 Status.$inject = ['CONSTANTS', 'Utils', '$http', '$timeout', '$q'];
 function Status(CONSTANTS, Utils, $http, $timeout, $q) {
 
@@ -71,31 +83,37 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
 
     var defer = $q.defer();
 
-    var local;
-    var remote;
+    var callback = function(err,data) {
+      if (err)  { defer.reject(response); }
+      else      { defer.resolve(data); }
+    };
 
-    $http({
-      method: 'GET',
-      url: CONSTANTS.URL_REMOTE_TRAINING_SET
-    })
-      .then(function successCallback(response) {
-        defer.resolve(response.data);
+    if (navigator.onLine) {
 
-      }, function errorCallback(response) {
+      getData(CONSTANTS.URL_REMOTE_TRAINING_SET)
+        .then(function successCallback(response) { callback(null, response.data); },
+              function errorCallback(response)   {
+                getData(CONSTANTS.URL_LOCAL_TRAINING_SET)
+                  .then(function successCallback(response) { callback(null, response.data); },
+                    function errorCallback(response) { ionic.Platform.exitApp(); });
+              });
 
-        $http({
-          method: 'GET',
-          url: './assets/default.json'
-        }).then(function successCallback(response) {
-          defer.resolve(response.data);
+    } else {
 
-        }, function errorCallback(response) {
-          console.log('todo ha ido mal :(');
-          defer.reject(response);
-        });
-      });
+      getData(CONSTANTS.URL_LOCAL_TRAINING_SET)
+        .then(function successCallback(response) { callback(null, response.data); },
+          function errorCallback(response) { ionic.Platform.exitApp(); });
+    }
 
     return defer.promise;
+  }
+
+  function getData(url) {
+
+    return $http({
+      method: 'GET',
+      url: url
+    });
   }
 
   function loadIA() {
@@ -116,7 +134,7 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
 
       var games = [];
         games.push(decisionTree.predict(responses));
-        games =Utils.lodash.merge(games, Utils.lodash.keys(randomForest.predict(responses)))
+        games =Utils.lodash.merge(games, Utils.lodash.keys(randomForest.predict(responses)));
 
       Utils.lodash.uniq(games);
       defer.resolve(games);
@@ -139,7 +157,7 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
 
     var previous = Utils.lodash.keys(responses);
     var options = Utils.lodash.keys(knowledge.questions);
-    var position = Utils.lodash.head(Utils.lodash.difference(options,previous));
+    var position = Utils.lodash.head(Utils.lodash.difference(options,previous)) || 0;
     var candidate = knowledge.questions[position];
 
     if (Utils.lodash.isArray(candidate)) {

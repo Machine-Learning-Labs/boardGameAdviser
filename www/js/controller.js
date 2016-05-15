@@ -14,7 +14,7 @@ function HomeController(Status, $state) {
   var vm = this;
   vm.ready = false;
   vm.textButton = "Adelante";
-  vm.start = start;
+  vm.run = run;
 
   Status.start()
     .then(function(res) {
@@ -27,7 +27,7 @@ function HomeController(Status, $state) {
 
   ////////////
 
-  function start() {
+  function run() {
     $state.go('questions');
   }
 

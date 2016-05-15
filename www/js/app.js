@@ -12,50 +12,53 @@ angular
     ATTR_TO_IGNORE : ['name','description', 'prize', 'url'],
     MIN_PERCENT_VALID: 60,
     AUTOSEND_SECONDS: 300,
+    URL_LOCAL_TRAINING_SET: './assets/default.json',
     URL_REMOTE_TRAINING_SET: 'http://www.mordorgames.es/datos/',
     KEYWORD_DISCARD: 'discard'
   })
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+  .run(function($ionicPlatform) {
 
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-  });
-})
+    $ionicPlatform.ready(function() {
 
-.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
+      if(window.cordova && window.cordova.plugins.Keyboard) {
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
-    .state('home', {
-      url: '/home',
-      templateUrl: 'templates/home.html',
-      controller: 'HomeController as home'
-    })
+        // Don't remove this line unless you know what you are doing. It stops the viewport
+        // from snapping when text inputs are focused. Ionic handles this internally for
+        // a much nicer keyboard experience.
+        cordova.plugins.Keyboard.disableScroll(true);
+      }
 
-    .state('questions', {
-      url: '/questions',
-      templateUrl: 'templates/question.html',
-      controller: 'QuestionController as question'
-    })
-
-    .state('result', {
-      url: '/result',
-      templateUrl: 'templates/result.html',
-      controller: 'ResultController as result'
+      if(window.StatusBar) {
+        StatusBar.styleDefault();
+      }
     });
+  })
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/home');
-});
+  .config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider
 
+      .state('home', {
+        url: '/home',
+        templateUrl: 'templates/home.html',
+        controller: 'HomeController as home'
+      })
+
+      .state('questions', {
+        url: '/questions',
+        templateUrl: 'templates/question.html',
+        controller: 'QuestionController as question'
+      })
+
+      .state('result', {
+        url: '/result',
+        templateUrl: 'templates/result.html',
+        controller: 'ResultController as result'
+      });
+
+    // if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise('/home');
+  });
