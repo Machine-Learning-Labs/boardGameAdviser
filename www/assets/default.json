@@ -6,9 +6,8 @@
         {
           "label": "Muy poco, quiero aprender rápido y empezar a jugar ya",
           "value": 1
-        },
-        {
-          "label": "Poco, para que la partida sea rapida",
+        }, {
+          "label": "Poco, para que la partida sea rápida",
           "value": 2
         },
         {
@@ -374,20 +373,19 @@
         {
           "label": "Me pirran los zombies",
           "value": "zombies"
-        },
-        {
-          "label": "Me va mas la epoca medieval",
+        },{
+          "label": "Me gustan las novelas históricas",
+          "value": "historic"
+        }, {
+          "label": "Me va más la época medieval",
           "value": "medieval"
-        },
-        {
+        }, {
           "label": "Soy un fanatico de la ciencia ficcion",
           "value": "ciencia"
-        },
-        {
-          "label": "Me encanta la fantasia de cualquier epoca",
+        }, {
+          "label": "Me encanta la fantasia de cualquier época",
           "value": "fantasia"
-        },
-        {
+        }, {
           "label": "Me da un poco igual si el juego es bueno",
           "value": "discard"
         }
