@@ -11,8 +11,8 @@ angular
   .module('boardGameAdviser', ['ionic', 'ngAnimate'])
 
   .constant('CONSTANTS', {
-    NUMBER_OF_TREES: 3,
-    ATTR_TO_IGNORE : ['name','description', 'prize', 'url'],
+    NUMBER_OF_TREES: 7,
+    ATTR_TO_IGNORE : ['id','name','description', 'prize', 'url'],
     MIN_PERCENT_VALID: 1,
     AUTOSEND_SECONDS: 300,
     URL_LOCAL_TRAINING_SET: './assets/default.json',
@@ -60,6 +60,12 @@ angular
         url: '/result',
         templateUrl: 'templates/result.html',
         controller: 'ResultController as result'
+      })
+
+      .state('admin', {
+        url: '/admin',
+        templateUrl: 'templates/admin.html',
+        controller: 'AdminController as admin'
       });
 
     // if none of the above states are matched, use this as the fallback

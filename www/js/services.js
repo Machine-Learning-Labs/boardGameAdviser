@@ -63,6 +63,7 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
     getGame: getGame,
     getQuestion: getQuestion,
     getPreviousQuestion: getPreviousQuestion,
+    getAllQuestions: getAllQuestions,
     predict: predict,
     put: put,
     clear: clear,
@@ -177,6 +178,15 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
   }
 
   /**
+   * Return all questions with candidate values instead labels
+   * @returns {Object}
+   */
+  function getAllQuestions() {
+
+    return _.mapValues(knowledge.questions,function(value, key) { return _.map(value.replies, 'value'); });
+  }
+
+  /**
    * Get a new unAnswered question
    *
    * @returns {{}}
@@ -213,8 +223,6 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
   function getPreviousQuestion(reference) {
 
     // TODO -> return another game
-
-
     var reply = {};
     reply = Utils.lodash.merge(reply,candidate);
     reply.attr = position;
@@ -250,7 +258,7 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
    *
    * @returns {boolean}
    */
-  function clear () {
+  function clear() {
     responses = null;
     responses = {};
     return _.isNull(responses);

@@ -1,0 +1,52 @@
+<!-- Ejemplo de pregunta ************************************************************** -->
+<ion-view view-title="Admin Page" cache-view="false">
+
+  <ion-content class="padding">
+
+    <h1>Vista secreta</h1>
+    <p>Enhorabuena hacker! En esta vista secreta puedes probar toda la app sin pasar por la encuesta.</p>
+
+    <h3>Preguntas</h3>
+    <div class="row">
+      <div class="col col-100">
+        <div class="list">
+          <div ng-repeat="(key, item) in admin.questions" class="item range range-positive">
+            {{ key }}
+            <i class="icon"></i>
+            <input type="range" ng-model="admin.responses[key]">
+            <i class="icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Respuestas</h3>
+    <div class="row">
+      <div class="col col-100">
+        {{ admin.responses }}
+      </div>
+    </div>
+
+    <h3>Resultado</h3>
+    <div class="row">
+      <div class="col col-100">
+        Contenido
+      </div>
+    </div>
+
+    <h3>Acciones</h3>
+    <div class="row">
+      <div class="col col-50">
+        <button ng-click="admin.clear()" class="button button-block button-energized">
+          Limpiar
+        </button>
+      </div>
+      <div class="col col-50">
+        <button ng-click="admin.think()" class="button button-block button-balanced">
+          Pensar
+        </button>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>
