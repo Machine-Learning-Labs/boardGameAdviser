@@ -1,3 +1,7 @@
+(function() {
+  'use strict';
+
+
 angular
   .module('boardGameAdviser')
   .factory('Utils', Utils)
@@ -58,6 +62,7 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
     start: start,
     getGame: getGame,
     getQuestion: getQuestion,
+    getPreviousQuestion: getPreviousQuestion,
     predict: predict,
     put: put,
     clear: clear,
@@ -68,6 +73,11 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
 
   ////////////
 
+  /**
+   * Bootstrap the IA
+   *
+   * @returns {*}
+   */
   function start() {
 
       return getTrainingSet().then(function(data) {
@@ -83,6 +93,11 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
 
   }
 
+  /**
+   * Get the tragining dataset
+   *
+   * @returns {r.promise|k.promise|{then, catch, finally}|promise|*|Promise}
+   */
   function getTrainingSet() {
 
     var defer = $q.defer();
@@ -112,14 +127,9 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
     return defer.promise;
   }
 
-  function getData(url) {
-
-    return $http({
-      method: 'GET',
-      url: url
-    });
-  }
-
+  /**
+   * Initializes the IA
+   */
   function loadIA() {
 
     // Building Decision Tree
@@ -129,6 +139,10 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
     randomForest = new Utils.dt.RandomForest(iaConfig, numberOfTrees);
   }
 
+  /**
+   * Give a prediction from responses
+   * @returns {r.promise|promise|*|k.promise|{then, catch, finally}|Promise}
+   */
   function predict() {
 
     var defer = $q.defer();
@@ -148,10 +162,25 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
     return defer.promise;
   }
 
-  function getGame(id) {
-    return Utils.jmespath.search(knowledge,"training[?id=='"+id+"']");
+  /**
+   * $http get wrapper
+   *
+   * @param url
+   * @returns {*}
+   */
+  function getData(url) {
+
+    return $http({
+      method: 'GET',
+      url: url
+    });
   }
 
+  /**
+   * Get a new unAnswered question
+   *
+   * @returns {{}}
+   */
   function getQuestion() {
 
     var position = "minjugadores";
@@ -175,20 +204,68 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
     return reply;
   }
 
+
+  /**
+   * Locate and returns a question before some pointer
+   * @param reference
+   * @returns {{}}
+   */
+  function getPreviousQuestion(reference) {
+
+    // TODO -> return another game
+
+
+    var reply = {};
+    reply = Utils.lodash.merge(reply,candidate);
+    reply.attr = position;
+    reply.percent = parseInt((previous.length * 100) / options.length);
+
+    return reply;
+
+  }
+
+  /**
+   * Returns a clean copy of responses
+   * @returns {*}
+   */
   function getResponses() {
     return _.clone(responses);
   }
 
+  /**
+   * Save a response by a pair key val
+   *
+   * @param key
+   * @param val
+   * @returns {boolean}
+     */
   function put(key,val) {
 
     responses[key] = val;
     return responses.key == val;
   }
 
+  /**
+   * Cleans all the responses
+   *
+   * @returns {boolean}
+   */
   function clear () {
     responses = null;
     responses = {};
     return _.isNull(responses);
   }
 
+  /**
+   * Get the data from a game
+   *
+   * @param id
+   * @returns {*}
+   */
+  function getGame(id) {
+    return Utils.jmespath.search(knowledge,"training[?id=='"+id+"']");
+  }
+
 }
+
+})();

@@ -1,26 +1,25 @@
-'use strict';
+(function() {
+  'use strict';
 
-angular
-  .module('boardGameAdviser')
-  .filter('labelize',labelize);
+  angular
+    .module('boardGameAdviser')
+    .filter('labelize',labelize);
 
-/*
- question.currentQuestion = question
- question.currentQuestion.reply = value
+  /*
+   question.currentQuestion = question
+   question.currentQuestion.reply = value
+   */
 
- */
+  labelize.$inject = ['Utils'];
+  function labelize(Utils) {
 
-labelize.$inject = ['Utils'];
-function labelize(Utils) {
+    return function(question, value) {
 
-  return function(question, value) {
+      // debugger;
 
-    var reply = Utils.lodash.find(question.replies,{value:value}).label;
+      var reply = Utils.lodash.find(question.replies,{value:value}).label;
+      return reply;
+    };
+  }
 
-    console.log(question)
-    console.log(value)
-    console.log(reply);
-
-    return reply;
-  };
-}
+})();
