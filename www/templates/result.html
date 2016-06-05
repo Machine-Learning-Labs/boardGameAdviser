@@ -10,9 +10,11 @@
         <h2>{{ item.name }}</h2>
 
         <div class="animate-switch-container" ng-switch on="item.prize">
-          <div ng-switch-when="cheap">Menos de 25€</div>
-          <div ng-switch-when="medium">Entre 25€ y 60€</div>
-          <div ng-switch-default>Más de 60€</div>
+          <div ng-switch-when="mini">Menos de 15€</div>
+          <div ng-switch-when="cheap">Entre 25€ y 40€</div>
+          <div ng-switch-when="medium">Entre 40€ y 60€</div>
+          <div ng-switch-when="super">Más de 60€</div>
+
         </div>
 
       </div>

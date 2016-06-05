@@ -46,7 +46,7 @@
       "id": "8436017221916",
       "description": "bla bla bla",
       "name": "Carcassonne Colinas y ovejas",
-      "prize": ["cheap","medium","expensive"],
+      "prize": ["mini","cheap","medium","super"],
       "url": "http://www.mordorgames.es/tienda/juegos-de-mesa/164-carcassonne-colinas-y-ovejas-8436017221916.html",
 
       // Numéricos
@@ -73,3 +73,20 @@
     }
   ]
 }
+
+mini = menos de 15€
+menos de 10
+menos de 15
+
+cheap = entre 25 y 40€
+menos de 20
+menos de 30
+
+medium = entre 40 y 60€
+menos de 40
+menos de 50
+
+super = más de 60€
+menos de 60
+menos de 70
+menos de 80
