@@ -161,7 +161,7 @@ function Status(CONSTANTS, Utils, $http, $timeout, $q) {
       default: position = Utils.lodash.sample(Utils.lodash.difference(options,previous));
     }
 
-    var candidate = candidate = knowledge.questions[position];
+    var candidate = knowledge.questions[position];
 
     var reply = {};
       reply = Utils.lodash.merge(reply,candidate);

@@ -48,8 +48,9 @@ function QuestionController(CONSTANTS, Status, $state, $timeout) {
   function next() {
 
     vm.currentQuestion = Status.getQuestion();
+    
 
-    if (vm.currentQuestion.percent >= 99) {
+    if (vm.currentQuestion.percent >= 99 || vm.currentQuestion.text===undefined) {
       $state.go('result');
     }
   }
