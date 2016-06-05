@@ -49,9 +49,19 @@ function QuestionController(CONSTANTS, Status, $state, $timeout) {
 
     vm.currentQuestion = Status.getQuestion();
 
-    if (vm.currentQuestion.percent == 100) {
+    if (vm.currentQuestion.percent >= 99) {
       $state.go('result');
     }
+  }
+
+  function ignore() {
+    vm.currentQuestion.reply = CONSTANTS.KEYWORD_DISCARD;
+    save();
+
+  }
+
+  function previous() {
+
   }
 
   function save() {

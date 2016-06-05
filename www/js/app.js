@@ -10,7 +10,7 @@ angular
   .constant('CONSTANTS', {
     NUMBER_OF_TREES: 3,
     ATTR_TO_IGNORE : ['name','description', 'prize', 'url'],
-    MIN_PERCENT_VALID: 60,
+    MIN_PERCENT_VALID: 1,
     AUTOSEND_SECONDS: 300,
     URL_LOCAL_TRAINING_SET: './assets/default.json',
     URL_REMOTE_TRAINING_SET: 'http://www.mordorgames.es/datos/',
