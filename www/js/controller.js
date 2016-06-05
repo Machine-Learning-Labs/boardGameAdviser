@@ -33,8 +33,8 @@ function HomeController(Status, $state) {
 
 }
 
-QuestionController.$inject = ['CONSTANTS', 'Status', '$state', '$timeout'];
-function QuestionController(CONSTANTS, Status, $state, $timeout) {
+QuestionController.$inject = ['CONSTANTS', 'Status', 'Utils', '$state', '$timeout'];
+function QuestionController(CONSTANTS, Status, Utils, $state, $timeout) {
 
   var vm = this;
     vm.style = '';
@@ -48,7 +48,9 @@ function QuestionController(CONSTANTS, Status, $state, $timeout) {
   function next() {
 
     vm.currentQuestion = Status.getQuestion();
-    
+
+    console.log(vm.currentQuestion);
+
 
     if (vm.currentQuestion.percent >= 99 || vm.currentQuestion.text===undefined) {
       $state.go('result');

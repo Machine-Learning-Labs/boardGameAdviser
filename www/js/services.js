@@ -9,6 +9,10 @@ function Errors ($window) {
 
   return function(exception, cause) {
 
+    console.log('error ****************');
+    console.log(exception);
+    console.log(cause);
+
     $window.location.href = '/';
     //$injector.get('$state').go('home');
     //throw exception;

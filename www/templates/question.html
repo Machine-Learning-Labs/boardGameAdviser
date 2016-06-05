@@ -10,15 +10,37 @@
         <p><b>{{ question.currentQuestion.text }}</b></p>
         <br/>
 
-        <ion-radio ng-repeat="item in question.currentQuestion.replies"
-                   ng-value="item.value"
-                   ng-model="question.currentQuestion.reply"
-                   ng-click="question.save()">
-          {{ item.label }}
-        </ion-radio>
+        <!-- Type of question -->
+        <div class="row" ng-switch="question.currentQuestion.type">
+
+          <div class="col col-100" ng-switch-when="text">
+            <ion-radio ng-repeat="item in question.currentQuestion.replies"
+                       ng-value="item.value"
+                       ng-model="question.currentQuestion.reply"
+                       ng-click="question.save()">
+              {{ item.label }}
+            </ion-radio>
+          </div>
+
+          <div class="col col-100" ng-switch-when="range">
+            {{ question.currentQuestion | labelize: question.currentQuestion.reply}}
+            <div class="list">
+              <div class="item range range-positive">
+                <i class="icon" ng-class="question.currentQuestion.icons.min"></i>
+                <input type="range"
+                       on-release="question.save()"
+                       ng-model="question.currentQuestion.replies">
+                <i class="icon" ng-class="question.currentQuestion.icons.max"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
 
         <div class="row">
-          <div class="col col-90">
+          <div class="col col-80 col-offset-10">
             <progress class="padding" id="progressbar" max="100" value="{{ question.currentQuestion.percent || 0 }}"></progress>
           </div>
 
