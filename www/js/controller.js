@@ -1,6 +1,6 @@
+(function() {
+  'use strict';
 
-
-/* recommended */
 angular
   .module('boardGameAdviser')
   .controller('HomeController', HomeController)
@@ -37,9 +37,11 @@ QuestionController.$inject = ['CONSTANTS', 'Status', 'Utils', '$state', '$timeou
 function QuestionController(CONSTANTS, Status, Utils, $state, $timeout) {
 
   var vm = this;
-    vm.style = '';
-    vm.prematureFinish = false;
-    vm.save = save;
+  vm.style = '';
+  vm.prematureFinish = false;
+  vm.save = save;
+  vm.ignore = ignore;
+  vm.previous = previous;
 
   next();
 
@@ -48,9 +50,6 @@ function QuestionController(CONSTANTS, Status, Utils, $state, $timeout) {
   function next() {
 
     vm.currentQuestion = Status.getQuestion();
-
-    console.log(vm.currentQuestion);
-
 
     if (vm.currentQuestion.percent >= 99 || vm.currentQuestion.text===undefined) {
       $state.go('result');
@@ -64,14 +63,14 @@ function QuestionController(CONSTANTS, Status, Utils, $state, $timeout) {
   }
 
   function previous() {
-
+    vm.currentQuestion = Status.getPreviousQuestion(vm.currentQuestion.attr);
   }
 
   function save() {
 
     $timeout(function() {
 
-      if (vm.currentQuestion.reply !==CONSTANTS.KEYWORD_DISCARD) {
+      if (vm.currentQuestion.reply !==CONSTANTS.KEYWORD_DISCARD || !vm.currentQuestion.reply) {
         Status.put(vm.currentQuestion.attr, vm.currentQuestion.reply);
       }
 
@@ -118,3 +117,4 @@ function ResultController(Status, Utils, $state) {
 
 }
 
+})();
