@@ -53,6 +53,7 @@
       "educativo":2,      // 1 a 3
       "familia":1,        // 1 a 3
       "adictivo":4,       // 1 a 4
+      "infantil":3,       // 1 a 5 (1=poco, 5=muy infantil)
       "complejidad":3,    // 1 a 5
       "humor":1,          // 1 a 5
       "picaresca":3,      // 1 a 5
