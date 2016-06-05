@@ -365,6 +365,10 @@
       "text": "¿Cuantos jugadores máximo vais a jugar?",
       "replies": [
         {
+          "label": "1 jugador",
+          "value": "1"
+        },
+		{
           "label": "2 jugadores",
           "value": "2"
         },
