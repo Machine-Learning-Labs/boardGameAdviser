@@ -330,7 +330,7 @@
               distance += Math.abs( a[key] - b[key] ) * weigths[key];
             }
           } catch(err) {
-            distance += weigths[key];
+            distance += weigths[key] || 0;
           }
 
         });
