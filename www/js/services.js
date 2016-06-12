@@ -66,7 +66,7 @@
 
       var defer = $q.defer();
       var successCallback = function(response) { defer.resolve(response.data); };
-      var errorCallback = function(err) { defer.reject(err); /* ionic.Platform.exitApp(); */ };
+      var errorCallback = function(err) { defer.reject(err); };
 
       if (navigator.onLine) {
 
@@ -175,8 +175,7 @@
      * @returns {Object}
      */
     function getAllQuestions() {
-
-      return _.mapValues(knowledge.questions,function(value, key) { return _.map(value.replies, 'value'); });
+      return _.mapValues(questions,function(value, key) { return _.map(value.replies, 'value'); });
     }
 
     /**
@@ -374,7 +373,7 @@
       $log.error(exception)
       $log.error(cause)
 
-      //$window.location.href = '/';
+      $window.location.href = '/';
     };
   }
 

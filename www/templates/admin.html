@@ -10,11 +10,23 @@
     <div class="row">
       <div class="col col-100">
         <div class="list">
-          <div ng-repeat="(key, item) in admin.questions" class="item range range-positive">
+
+
+          <div  class="item range range-positive">
             {{ key }}
-            <i class="icon"></i>
-            <input type="range" ng-model="admin.responses[key]">
-            <i class="icon"></i>
+            {{ item }}
+            <input type="range" ng-model="admin.responses[key]" min="{{ item[0] }}" max=" {{ item[item.length-1] }}">
+            {{ admin.responses[key] || 0 }}
+          </div>
+        </div>
+      </div>
+      <div class="col col-100">
+        <div class="list">
+          <div ng-repeat="(key, item) in admin.questions.ranges" class="item range range-positive">
+            {{ key }}
+            {{ item }}
+            <input type="range" ng-model="admin.responses[key]" min="{{ item[0] }}" max=" {{ item[item.length-1] }}">
+            {{ admin.responses[key] || 0 }}
           </div>
         </div>
       </div>
@@ -30,7 +42,7 @@
     <h3>Resultado</h3>
     <div class="row">
       <div class="col col-100">
-        Contenido
+        {{ admin.alternatives }}
       </div>
     </div>
 
@@ -38,9 +50,9 @@
     <div class="row">
       <div class="col col-100">
         <ion-list>
-          <ion-radio ng-model="choice" ng-value="'forest'">Modo 1</ion-radio>
-          <ion-radio ng-model="choice" ng-value="'id3'">Modo 2</ion-radio>
-          <ion-radio ng-model="choice" ng-value="'manual'">Modo 3</ion-radio>
+          <ion-radio ng-model="admin.choice" ng-value="'kdTree'">Algoritmo 1</ion-radio>
+          <ion-radio ng-model="admin.choice" ng-value="'id3'">Algoritmo 2</ion-radio>
+          <ion-radio ng-model="admin.choice" ng-value="'randomForest'">Algoritmo 3</ion-radio>
         </ion-list>
       </div>
     </div>

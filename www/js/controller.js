@@ -132,26 +132,61 @@
     }
   }
 
-  AdminController.$inject = ['Data', 'Logic','Utils','$state'];
-  function AdminController(Data, Logic, Utils, $state) {
-
-    // debugger;
+  AdminController.$inject = ['Data', 'Logic', '$ionicLoading'];
+  function AdminController(Data, Logic, $ionicLoading) {
 
     var vm = this;
+    vm.choice = 'kdTree';
+    vm.alternatives = [];
     vm.responses = {};
-    vm.questions = Data.getAllQuestions();
+    vm.questions = {
+      ranges: [],
+      combos: []
+    };
+
     vm.think = think;
     vm.clear = clear;
 
+    // Manual data bootstrap
+    Data.start()
+      .then(function(res) {
+        $ionicLoading.hide();
+        init(Data.getAllQuestions());
+      })
+      .catch(function(res) {
+        $ionicLoading.hide();
+      });
+
     ////////////
 
-    function think() {
-      // TODO
+    function init(data) {
+
+      debugger
+
+      //vm.responses = ;
+      vm.questions.priority = {
+        "minedad": data['minedad'],
+        "minjugadores": data['minjugadores'],
+        "maxjugadores": data['maxjugadores'],
+      }
+
+      vm.questions.ranges = data;
+      vm.questions.combos = data;
+
+    }
+
+    function think(engine) {
+
+      Logic.predict(engine).then(function(res) {
+        vm.alternatives = res;
+      });
 
     }
 
     function clear() {
+      Data.clear();
       vm.responses = {};
+      vm.alternatives = [];
     }
   }
 

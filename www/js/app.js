@@ -11,9 +11,7 @@ angular
   .module('boardGameAdviser', ['ionic', 'ngAnimate'])
 
   .constant('CONSTANTS', {
-    //DEFAULT_ENGINE: 'id3',
-    DEFAULT_ENGINE: 'randomForest',
-    //DEFAULT_ENGINE: 'kdTree',
+    DEFAULT_ENGINE: 'kdTree',
     MAX_NUMBER_OF_SOLUTIONS: 5,
     KEYWORD_DISCARD: 'discard',
     ATTR_TO_IGNORE : ['id','name','description', 'prize', 'url'],
@@ -41,6 +39,7 @@ angular
       .catch(function(res) {
         $log.err(res);
         $ionicLoading.hide();
+        ionic.Platform.exitApp();
       });
 
     $ionicPlatform.ready(function() {
