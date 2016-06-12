@@ -16,7 +16,6 @@ jmespath.search(knowledge,"training[?adictivo==`4`].name")
 // Preguntar por literales
 jmespath.search(knowledge,"training[?minedad=='10'].{NAME:name}")
 
-
 // Sacar en forma de objeto
 jmespath.search(knowledge,"training[?adictivo==`4`].{NAME:name}")
 

@@ -13,13 +13,18 @@ angular
   .constant('CONSTANTS', {
     DEFAULT_ENGINE: 'kdTree',
     MAX_NUMBER_OF_SOLUTIONS: 5,
-    ATTR_TO_IGNORE : ['id','name','description', 'prize', 'url'],
-    MIN_PERCENT_VALID: 1,
-    AUTOSEND_SECONDS: 300,
-    URL_LOCAL_TRAINING_SET: './assets/training.json',
-    URL_REMOTE_TRAINING_SET: 'http://www.mordorgames.es/datos/',
     KEYWORD_DISCARD: 'discard',
-    SELECTED_ALGORITHM: ''
+    ATTR_TO_IGNORE : ['id','name','description', 'prize', 'url'],
+    STRING_ATTR_MAP: {
+      modojuego:["competitivo","mixto","cooperativo"],
+      tipojuego:["investigar", "agilizar", "imaginar","rolear", "apostar","gestion","invadir"],
+      atmosfera: ["discard", "ciencia", "fantasia","historic", "medieval","zombies"],
+      ocupacion:["small", "normal","large"]
+    },
+    AUTOSEND_SECONDS: 300,
+    MIN_PERCENT_VALID: 12,
+    URL_LOCAL_TRAINING_SET: './assets/training.json',
+    URL_REMOTE_TRAINING_SET: 'http://www.mordorgames.es/datos/'
   })
 
   .run(function($ionicPlatform, $ionicLoading, $log, Data) {

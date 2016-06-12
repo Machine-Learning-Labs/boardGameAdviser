@@ -65,7 +65,7 @@
       // Literales (discard = no aplica)
       "modojuego":["competitivo","mixto","cooperativo"],
       "tipojuego":["agilizar", "apostar","gestion","imaginar","invadir","investigar","rolear"],
-      "atmosfera": ["discard", "ciencia", "fantasia","historic", "medieval","zombies","zombies"],
+      "atmosfera": ["discard", "ciencia", "fantasia","historic", "medieval","zombies"],
       "maxjugadores":["2", "3","4","5","6","muchos"],
       "minjugadores":["2", "3","4","5","muchos"],
       "minedad":["4", "6","8","10","12","14"],

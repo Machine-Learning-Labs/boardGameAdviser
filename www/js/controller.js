@@ -33,13 +33,16 @@
 
   }
 
-  HomeController.$inject = ['$state', '$ionicLoading'];
-  function HomeController($state, $ionicLoading) {
+  HomeController.$inject = ['Data', '$state', '$ionicLoading'];
+  function HomeController(Data, $state, $ionicLoading) {
 
     var vm = this;
       vm.ready = true;
       vm.textButton = "Adelante";
       vm.run = run;
+
+
+    Data.clear();
 
     ////////////
 
@@ -102,33 +105,26 @@
 
   }
 
-  ResultController.$inject = ['CONSTANTS', 'Data', 'Logic','Utils','$state'];
-  function ResultController(CONSTANTS, Data, Logic, Utils, $state) {
+  ResultController.$inject = ['CONSTANTS', 'Data', 'Logic','$state'];
+  function ResultController(CONSTANTS, Data, Logic, $state) {
 
     var vm = this;
-    vm.reset = reset;
-    vm.Utils = Utils;
     vm.input = {};
     vm.prediction = {};
     vm.alternatives = [];
 
-    this.goToLink = function (url) {
-      window.open(url,'_system');
-    };
-
-    //debugger;
+    vm.reset = reset;
+    vm.goToLink = goToLink;
 
     Logic.predict(CONSTANTS.DEFAULT_ENGINE).then(function(res) {
-
-      debugger
-      debugger
-
-      var games = _.map(res, function(n) { return Data.getGame(n); },vm);
-      vm.alternatives = vm.Utils.lodash.flatten(games);
-
+      vm.alternatives = res;
     });
 
     ////////////
+
+    function goToLink(url) {
+      window.open(url,'_system');
+    }
 
     function reset() {
       Data.clear();

@@ -14,9 +14,6 @@
   function labelize(Utils) {
 
     return function(question, value) {
-
-      // debugger;
-
       var reply = Utils.lodash.find(question.replies,{value:value}).label;
       return reply;
     };

@@ -167,7 +167,7 @@
      * @returns {*}
      */
     function getGame(id) {
-      return Utils.jmespath.search(knowledge,"training[?id=='"+id+"']");
+      return Utils.jmespath.search(knowledge,"[?id=='"+id+"']");
     }
 
     /**
@@ -243,19 +243,24 @@
      */
     function predict(engine) {
 
-      var games = [];
       var defer = $q.defer();
 
       // Testing Decision Tree and Random Forest
       $timeout(function() {
 
+        var ids = [];
+        var games = [];
+
+        // Predict
         switch (engine) {
-          case "id3": games = id3_predict(); break;
-          case "randomForest": games = randomForest_predict(); break;
+          case "id3": ids = id3_predict(); break;
+          case "randomForest": ids = randomForest_predict(); break;
           case "kdTree":
-          default: games = kdTree_predict(); break;
+          default: ids = kdTree_predict(); break;
         }
 
+        // Filter
+        games = Utils._.flatten(Utils._.map(ids, function(n) { return Data.getGame(n); }));
         defer.resolve(games);
 
       }, CONSTANTS.AUTOSEND_SECONDS);
@@ -303,44 +308,43 @@
      */
     function kdTree_predict() {
 
-      //debugger;
-
       var responses = Data.getResponses();
       var training = Data.getTrainingSet();
       var weigths = Data.getWeigths();
 
+      var attrs = Utils._.difference(Utils._.keys(responses), CONSTANTS.ATTR_TO_IGNORE);
       var similarity = function (a,b) {
-
-        //debugger;
-
-        console.log('-->' + a.name + ' vs ' + b.name)
 
         var distance = 0;
 
         Utils._.forEach(a, function(value,key) {
+          
+          try {
+            if (typeof(a[key])==='string') {
 
-          console.log(a[key])
-          console.log(b[key])
-          console.log(weigths[key])
+              var aStringified = _.indexOf(CONSTANTS.STRING_ATTR_MAP[key], a[key]);
+              var bStringified = _.indexOf(CONSTANTS.STRING_ATTR_MAP[key], b[key]);
+              distance += Math.abs( aStringified - bStringified ) * weigths[key];
+            } else {
+              distance += Math.abs( a[key] - b[key] ) * weigths[key];
+            }
+          } catch(err) {
+            distance += weigths[key];
+          }
 
-          distance += Math.abs( a[key] - b[key] ) * weigths[key] || 0;
-          console.log(distance)
-        } );
-
-        console.log(a.name + ' vs ' + b.name + '=' + distance)
-        //console.log('a? ' + JSON.stringify(a))
-        //console.log('b? ' + JSON.stringify(b))
+        });
 
         return distance;
-      }
+      };
 
-      //var attrs = Utils._.difference(Utils._.keys(Utils._.first(training)), CONSTANTS.ATTR_TO_IGNORE);
-      var attrs = Utils._.difference(Utils._.keys(responses), CONSTANTS.ATTR_TO_IGNORE);
 
       var tree = new Utils.kdTree(training, similarity, attrs);
       var conclusion = tree.nearest(responses, CONSTANTS.MAX_NUMBER_OF_SOLUTIONS);
 
-      return Utils._.map(Utils._.sortBy(conclusion,1),0);
+      var Games = Utils._.map(Utils._.sortBy(conclusion,1),0);
+      Games = Utils._.map(Games,'id');
+
+      return Games;
 
     }
 
@@ -369,7 +373,7 @@
       console.log(exception);
       console.log(cause);
 
-      //$window.location.href = '/';
+      $window.location.href = '/';
     };
   }
 
