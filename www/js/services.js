@@ -282,11 +282,12 @@
       };
 
       var decisionTree = new Utils.dt.DecisionTree(iaConfig);
-      return decisionTree.predict(Data.getResponses())
+      var conclusion = [decisionTree.predict(Data.getResponses())];
+      return conclusion;
     }
 
     /**
-     * Recommend one game using ID3 Decision Tree Algorithm
+     * Recommend one game using RandomForest Algorithm
      * @returns [{game:id}]
      */
     function randomForest_predict() {
@@ -299,11 +300,12 @@
       };
 
       var randomForest = new Utils.dt.RandomForest(iaConfig, CONSTANTS.MAX_NUMBER_OF_SOLUTIONS);
-      return randomForest.predict(Data.getResponses())
+      var conclusion = randomForest.predict(Data.getResponses());
+      return Utils._.keys(conclusion);
     }
 
     /**
-     * Recommend one game using ID3 Decision Tree Algorithm
+     * Recommend one game using KdTree Algorithm
      * @returns [{game:id}]
      */
     function kdTree_predict() {
@@ -318,7 +320,7 @@
         var distance = 0;
 
         Utils._.forEach(a, function(value,key) {
-          
+
           try {
             if (typeof(a[key])==='string') {
 
@@ -364,16 +366,15 @@
     };
   }
 
-  Errors.$inject = ['$window'];
-  function Errors ($window) {
+  Errors.$inject = ['$window','$log'];
+  function Errors ($window, $log) {
 
     return function(exception, cause) {
 
-      console.log('error ****************');
-      console.log(exception);
-      console.log(cause);
+      $log.error(exception)
+      $log.error(cause)
 
-      $window.location.href = '/';
+      //$window.location.href = '/';
     };
   }
 
