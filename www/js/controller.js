@@ -9,7 +9,6 @@
     .controller('ResultController', ResultController)
     .controller('AdminController', AdminController);
 
-
   barController.$inject = ['$state'];
   function barController($state) {
 
@@ -34,23 +33,13 @@
 
   }
 
-
-  HomeController.$inject = ['Status', '$state'];
-  function HomeController(Status, $state) {
+  HomeController.$inject = ['$state', '$ionicLoading'];
+  function HomeController($state, $ionicLoading) {
 
     var vm = this;
-    vm.ready = false;
-    vm.textButton = "Adelante";
-    vm.run = run;
-
-    Status.start()
-      .then(function(res) {
-        vm.ready = true;
-      })
-      .catch(function(res) {
-        vm.ready = false;
-        vm.textButton = "Intentar de nuevo más tarde";
-      });
+      vm.ready = true;
+      vm.textButton = "Adelante";
+      vm.run = run;
 
     ////////////
 
@@ -60,8 +49,8 @@
 
   }
 
-  QuestionController.$inject = ['CONSTANTS', 'Status', 'Utils', '$state', '$timeout'];
-  function QuestionController(CONSTANTS, Status, Utils, $state, $timeout) {
+  QuestionController.$inject = ['CONSTANTS', 'Data', '$state', '$timeout'];
+  function QuestionController(CONSTANTS, Data, $state, $timeout) {
 
     var vm = this;
     vm.style = '';
@@ -76,7 +65,7 @@
 
     function next() {
 
-      vm.currentQuestion = Status.getQuestion();
+      vm.currentQuestion = Data.getQuestion();
 
       if (vm.currentQuestion.percent >= 99 || vm.currentQuestion.text===undefined) {
         $state.go('result');
@@ -90,7 +79,7 @@
     }
 
     function previous() {
-      vm.currentQuestion = Status.getPreviousQuestion(vm.currentQuestion.attr);
+      vm.currentQuestion = Data.getPreviousQuestion(vm.currentQuestion.attr);
     }
 
     function save() {
@@ -98,7 +87,7 @@
       $timeout(function() {
 
         if (vm.currentQuestion.reply !==CONSTANTS.KEYWORD_DISCARD || !vm.currentQuestion.reply) {
-          Status.put(vm.currentQuestion.attr, vm.currentQuestion.reply);
+          Data.put(vm.currentQuestion.attr, vm.currentQuestion.reply);
         }
 
         vm.style = 'animated bounceInRight';
@@ -113,8 +102,8 @@
 
   }
 
-  ResultController.$inject = ['Status','Utils','$state'];
-  function ResultController(Status, Utils, $state) {
+  ResultController.$inject = ['CONSTANTS', 'Data', 'Logic','Utils','$state'];
+  function ResultController(CONSTANTS, Data, Logic, Utils, $state) {
 
     var vm = this;
     vm.reset = reset;
@@ -127,8 +116,14 @@
       window.open(url,'_system');
     };
 
-    Status.predict().then(function(res) {
-      var games = _.map(res, function(n) { return Status.getGame(n); },vm);
+    //debugger;
+
+    Logic.predict(CONSTANTS.DEFAULT_ENGINE).then(function(res) {
+
+      debugger
+      debugger
+
+      var games = _.map(res, function(n) { return Data.getGame(n); },vm);
       vm.alternatives = vm.Utils.lodash.flatten(games);
 
     });
@@ -136,19 +131,19 @@
     ////////////
 
     function reset() {
-      Status.clear();
+      Data.clear();
       $state.go('home');
     }
   }
 
-  AdminController.$inject = ['Status','Utils','$state'];
-  function AdminController(Status, Utils, $state) {
+  AdminController.$inject = ['Data', 'Logic','Utils','$state'];
+  function AdminController(Data, Logic, Utils, $state) {
 
     // debugger;
 
     var vm = this;
     vm.responses = {};
-    vm.questions = Status.getAllQuestions();
+    vm.questions = Data.getAllQuestions();
     vm.think = think;
     vm.clear = clear;
 

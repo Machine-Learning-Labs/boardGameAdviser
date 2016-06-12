@@ -36,6 +36,9 @@ _.groupBy(jmespath.search(knowledge,"training[?minjugadores=='5'].maxjugadores")
 _.groupBy(jmespath.search(knowledge,"training[?minjugadores=='6'].maxjugadores"),parseInt)
 _.groupBy(jmespath.search(knowledge,"training[?minjugadores=='muchos'].maxjugadores"),parseInt)
 
+// Más de una consulta :)
+jmespath.search(knowledge,"training[?minedad=='10'] \| [?atmosfera=='medieval']")
+
 
 // Sacar listado de juegos de una edad concreta
 jmespath.search(knowledge,"training[?minedad=='4'].name")

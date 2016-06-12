@@ -3,11 +3,14 @@
   "version": "1.1.1",
   "description": "boardGameAdviser: An Ionic project",
   "dependencies": {
+    "cordova-common": "^1.3.0",
     "gulp": "^3.5.6",
-    "gulp-sass": "^2.0.4",
     "gulp-concat": "^2.2.0",
     "gulp-minify-css": "^0.3.0",
-    "gulp-rename": "^1.2.0"
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^2.0.4",
+    "properties-parser": "^0.3.1",
+    "q": "^1.4.1"
   },
   "devDependencies": {
     "bower": "^1.3.3",

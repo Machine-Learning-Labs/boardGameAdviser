@@ -368,7 +368,7 @@
           "label": "1 jugador",
           "value": "1"
         },
-		{
+        {
           "label": "2 jugadores",
           "value": "2"
         },
@@ -480,6 +480,26 @@
         }
       ]
     }
+  },
+  "weigth": {
+    "minjugadores": 1,
+    "minedad": 1,
+    "maxjugadores": 1,
+    "complejidad": 1,
+    "duracion": 0.9,
+    "tipojuego": 0.8,
+    "modojuego": 0.8,
+    "suerte": 0.7,
+    "picaresca": 0.7,
+    "puteo": 0.6,
+    "rapidez": 0.5,
+    "humor": 0.4,
+    "adictivo": 0.4,
+    "atmosfera": 0.3,
+    "educativo": 0.2,
+    "familia": 0.2,
+    "ocupacion": 0.1,
+    "infantil": 0.1
   },
   "training": [
     {

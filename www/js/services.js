@@ -1,279 +1,376 @@
 (function() {
   'use strict';
 
+  angular
+    .module('boardGameAdviser')
+    .factory('Data', Data)
+    .factory('Logic', Logic)
+    .factory('Utils', Utils)
+    .factory('$exceptionHandler', Errors );
 
-angular
-  .module('boardGameAdviser')
-  .factory('Utils', Utils)
-  .service('Status', Status)
-  .factory('$exceptionHandler', Errors );
 
-Errors.$inject = ['$window'];
-function Errors ($window) {
+  Data.$inject = ['CONSTANTS', 'Utils', '$http', '$q'];
+  function Data(CONSTANTS, Utils, $http, $q) {
 
-  return function(exception, cause) {
+    var weigth = {};
+    var knowledge = {};
+    var questions = {};
+    var responses = {};
 
-    console.log('error ****************');
-    console.log(exception);
-    console.log(cause);
-
-    $window.location.href = '/';
-    //$injector.get('$state').go('home');
-    //throw exception;
-  };
-}
-
-function Utils() {
-
-  var jmespath = window.jmespath;
-  var lodash = window._;
-
-  var dt = window.dt;
-  return {
-    jmespath: jmespath,
-    lodash: lodash,
-    dt:dt
-  };
-}
-
-// Public API here
-Status.$inject = ['CONSTANTS', 'Utils', '$http', '$timeout', '$q'];
-function Status(CONSTANTS, Utils, $http, $timeout, $q) {
-
-  // Algorythm Results
-  var responses = {};
-  var knowledge = {
-    data: {},
-    keys: []
-  };
-
-  // IA Setup Vars
-  var decisionTree = {};
-  var randomForest = {};
-  var numberOfTrees = CONSTANTS.NUMBER_OF_TREES;
-  var iaConfig = {
-    trainingSet : [],
-    categoryAttr: 'id',
-    ignoredAttributes: CONSTANTS.ATTR_TO_IGNORE
-  };
-
-  // Public API here
-  var service = {
-    start: start,
-    getGame: getGame,
-    getQuestion: getQuestion,
-    getPreviousQuestion: getPreviousQuestion,
-    getAllQuestions: getAllQuestions,
-    predict: predict,
-    put: put,
-    clear: clear,
-    responses : getResponses
-  };
-
-  return service;
-
-  ////////////
-
-  /**
-   * Bootstrap the IA
-   *
-   * @returns {*}
-   */
-  function start() {
-
-      return getTrainingSet().then(function(data) {
-
-        knowledge = data;
-        knowledge.keys = _.keys(data.questions);
-        iaConfig.trainingSet = data.training;
-
-        loadIA();
-
-        return knowledge.keys.length;
-      });
-
-  }
-
-  /**
-   * Get the tragining dataset
-   *
-   * @returns {r.promise|k.promise|{then, catch, finally}|promise|*|Promise}
-   */
-  function getTrainingSet() {
-
-    var defer = $q.defer();
-
-    var callback = function(err,data) {
-      if (err)  { defer.reject(response); }
-      else      { defer.resolve(data); }
+    var service = {
+      start: start,
+      put:put,
+      clear:clear,
+      getGame:getGame,
+      getWeigths: getWeigths,
+      getResponses:getResponses,
+      getTrainingSet: getTrainingSet,
+      getAllQuestions:getAllQuestions,
+      getPreviousQuestion:getPreviousQuestion,
+      getQuestion:getQuestion
     };
 
-    if (navigator.onLine) {
+    return service;
 
-      getData(CONSTANTS.URL_REMOTE_TRAINING_SET)
-        .then(function successCallback(response) { callback(null, response.data); },
-              function errorCallback(response)   {
-                getData(CONSTANTS.URL_LOCAL_TRAINING_SET)
-                  .then(function successCallback(response) { callback(null, response.data); },
-                    function errorCallback(response) { ionic.Platform.exitApp(); });
-              });
+    ////////////
 
-    } else {
+    /**
+     * Bootstrap the data capture
+     *
+     * @returns {Promise}
+     */
+    function start() {
 
-      getData(CONSTANTS.URL_LOCAL_TRAINING_SET)
-        .then(function successCallback(response) { callback(null, response.data); },
-          function errorCallback(response) { ionic.Platform.exitApp(); });
+      var defer = $q.defer();
+
+      loadTrainingSet().then(function(data) {
+        weigth = data.weigth;
+        knowledge = data.training;
+        questions = data.questions;
+
+        defer.resolve(data.training.length);
+
+      },function(err) {
+        defer.reject(0);
+      });
+
+      return defer.promise;
     }
 
-    return defer.promise;
-  }
+    /**
+     * Get the tragining dataset
+     *
+     * @returns Promise
+     */
+    function loadTrainingSet() {
 
-  /**
-   * Initializes the IA
-   */
-  function loadIA() {
+      var defer = $q.defer();
+      var successCallback = function(response) { defer.resolve(response.data); };
+      var errorCallback = function(err) { defer.reject(err); /* ionic.Platform.exitApp(); */ };
 
-    // Building Decision Tree
-    decisionTree = new Utils.dt.DecisionTree(iaConfig);
+      if (navigator.onLine) {
 
-    // Building Random Forest
-    randomForest = new Utils.dt.RandomForest(iaConfig, numberOfTrees);
-  }
+        getData(CONSTANTS.URL_REMOTE_TRAINING_SET)
+          .then(successCallback,
+            function errorCallback(response) {
+              getData(CONSTANTS.URL_LOCAL_TRAINING_SET)
+                .then(successCallback,  errorCallback);
+            });
 
-  /**
-   * Give a prediction from responses
-   * @returns {r.promise|promise|*|k.promise|{then, catch, finally}|Promise}
-   */
-  function predict() {
+      } else {
 
-    var defer = $q.defer();
+        getData(CONSTANTS.URL_LOCAL_TRAINING_SET)
+          .then(successCallback,  errorCallback);
+      }
 
-    // Testing Decision Tree and Random Forest
-    $timeout(function() {
-
-      var games = [];
-        games.push(decisionTree.predict(responses));
-        games =Utils.lodash.merge(games, Utils.lodash.keys(randomForest.predict(responses)));
-
-      Utils.lodash.uniq(games);
-      defer.resolve(games);
-
-    }, CONSTANTS.AUTOSEND_SECONDS);
-
-    return defer.promise;
-  }
-
-  /**
-   * $http get wrapper
-   *
-   * @param url
-   * @returns {*}
-   */
-  function getData(url) {
-
-    return $http({
-      method: 'GET',
-      url: url
-    });
-  }
-
-  /**
-   * Return all questions with candidate values instead labels
-   * @returns {Object}
-   */
-  function getAllQuestions() {
-
-    return _.mapValues(knowledge.questions,function(value, key) { return _.map(value.replies, 'value'); });
-  }
-
-  /**
-   * Get a new unAnswered question
-   *
-   * @returns {{}}
-   */
-  function getQuestion() {
-
-    var position = "minjugadores";
-    var options = Utils.lodash.keys(knowledge.questions);
-    var previous = Utils.lodash.keys(responses);
-
-    switch(previous.length) {
-      case 0: position = "minjugadores"; break;
-      case 1: position = "maxjugadores"; break;
-      case 2: position = "minedad"; break;
-      default: position = Utils.lodash.sample(Utils.lodash.difference(options,previous));
+      return defer.promise;
     }
 
-    var candidate = knowledge.questions[position];
+    /**
+     * $http get wrapper
+     * @param url
+     * @returns {*}
+     */
+    function getData(url) {
 
-    var reply = {};
-      reply = Utils.lodash.merge(reply,candidate);
+      return $http({
+        method: 'GET',
+        url: url
+      });
+    }
+
+    /**
+     * Returns a clean copy of responses
+     * @returns {*}
+     */
+    function getResponses() {
+      return Utils._.clone(responses);
+    }
+
+    /**
+     * Returns a clean copy of weigths
+     * @returns {*}
+     */
+    function getWeigths() {
+      return Utils._.clone(weigth);
+    }
+
+
+    /**
+     * Returns a copy of games that satisfy the three rules by orders (minPlayer, minAge, maxPlayer)
+     * @returns {*}
+     */
+    function getTrainingSet() {
+
+      var reply = [];
+      var minAgeFilter = "[?minedad=='"+Utils._.get(getResponses(), 'minedad')+"']";
+      var minPlayersFilter = "[?minjugadores=='"+Utils._.get(getResponses(), 'minjugadores')+"']";
+      var maxPlayersFilter = "[?maxjugadores=='"+Utils._.get(getResponses(), 'maxjugadores')+"']";
+
+      var opt1 = jmespath.search(knowledge, minPlayersFilter + " \| " + minAgeFilter + " \| " + maxPlayersFilter);
+      var opt2 = jmespath.search(knowledge, minPlayersFilter + " \| " + minAgeFilter);
+      var opt3 = jmespath.search(knowledge, minPlayersFilter);
+
+      if (opt1.length>0)      { reply = opt1; }
+      else if (opt2.length>0) { reply = opt2; }
+      else if (opt3.length>0) { reply = opt3; }
+      else                    { reply = Utils._.clone(knowledge); }
+
+      return reply;
+    }
+
+    /**
+     * Save a response by a pair key val
+     * @param key
+     * @param val
+     * @returns {boolean}
+     */
+    function put(key,val) {
+
+      responses[key] = val;
+      return responses.key == val;
+    }
+
+    /**
+     * Cleans all the responses
+     * @returns {boolean}
+     */
+    function clear() {
+      responses = null;
+      responses = {};
+      return _.isNull(responses);
+    }
+
+    /**
+     * Get the data from a game
+     * @param id
+     * @returns {*}
+     */
+    function getGame(id) {
+      return Utils.jmespath.search(knowledge,"training[?id=='"+id+"']");
+    }
+
+    /**
+     * Return all questions with candidate values instead labels
+     * @returns {Object}
+     */
+    function getAllQuestions() {
+
+      return _.mapValues(knowledge.questions,function(value, key) { return _.map(value.replies, 'value'); });
+    }
+
+    /**
+     * Get a new unAnswered question
+     * @returns {{}}
+     */
+    function getQuestion() {
+
+      var position = "minjugadores";
+      var options = Utils._.keys(questions);
+      var previous = Utils._.keys(responses);
+
+      switch(previous.length) {
+        case 0: position = "minjugadores"; break;
+        case 1: position = "maxjugadores"; break;
+        case 2: position = "minedad"; break;
+        default: position = Utils._.sample(Utils._.difference(options,previous));
+      }
+
+      var candidate = questions[position];
+
+      var reply = {};
+      reply = Utils._.merge(reply,candidate);
       reply.attr = position;
       reply.percent = parseInt((previous.length * 100) / options.length);
 
-    return reply;
-  }
+      return reply;
+    }
 
 
-  /**
-   * Locate and returns a question before some pointer
-   * @param reference
-   * @returns {{}}
-   */
-  function getPreviousQuestion(reference) {
-
-    // TODO -> return another game
-    var reply = {};
-    reply = Utils.lodash.merge(reply,candidate);
-    reply.attr = position;
-    reply.percent = parseInt((previous.length * 100) / options.length);
-
-    return reply;
-
-  }
-
-  /**
-   * Returns a clean copy of responses
-   * @returns {*}
-   */
-  function getResponses() {
-    return _.clone(responses);
-  }
-
-  /**
-   * Save a response by a pair key val
-   *
-   * @param key
-   * @param val
-   * @returns {boolean}
+    /**
+     * Locate and returns a question before some pointer
+     * @param reference
+     * @returns {{}}
      */
-  function put(key,val) {
+    function getPreviousQuestion(reference) {
 
-    responses[key] = val;
-    return responses.key == val;
+      // TODO -> return another game
+      var reply = {};
+      reply = Utils._.merge(reply,candidate);
+      reply.attr = position;
+      reply.percent = parseInt((previous.length * 100) / options.length);
+
+      return reply;
+
+    }
+
   }
 
-  /**
-   * Cleans all the responses
-   *
-   * @returns {boolean}
-   */
-  function clear() {
-    responses = null;
-    responses = {};
-    return _.isNull(responses);
+  Logic.$inject = ['CONSTANTS', 'Data', 'Utils', '$q', '$timeout'];
+  function Logic(CONSTANTS, Data, Utils, $q, $timeout) {
+
+    return {
+      predict: predict
+    };
+
+    ////////////
+
+    /**
+     * Give a prediction from responses using different algorithms
+     *
+     * @param engine
+     * @returns {Promise}
+     */
+    function predict(engine) {
+
+      var games = [];
+      var defer = $q.defer();
+
+      // Testing Decision Tree and Random Forest
+      $timeout(function() {
+
+        switch (engine) {
+          case "id3": games = id3_predict(); break;
+          case "randomForest": games = randomForest_predict(); break;
+          case "kdTree":
+          default: games = kdTree_predict(); break;
+        }
+
+        defer.resolve(games);
+
+      }, CONSTANTS.AUTOSEND_SECONDS);
+
+      return defer.promise;
+    }
+
+    /**
+     * Recommend one game using ID3 Decision Tree Algorithm
+     * @returns [{game:id}]
+     */
+    function id3_predict() {
+
+      // Building Decision Tree
+      var iaConfig = {
+        categoryAttr: 'id',
+        trainingSet : Data.getTrainingSet(),
+        ignoredAttributes: CONSTANTS.ATTR_TO_IGNORE
+      };
+
+      var decisionTree = new Utils.dt.DecisionTree(iaConfig);
+      return decisionTree.predict(Data.getResponses())
+    }
+
+    /**
+     * Recommend one game using ID3 Decision Tree Algorithm
+     * @returns [{game:id}]
+     */
+    function randomForest_predict() {
+
+      // Building Random Forest
+      var iaConfig = {
+        categoryAttr: 'id',
+        trainingSet : Data.getTrainingSet(),
+        ignoredAttributes: CONSTANTS.ATTR_TO_IGNORE
+      };
+
+      var randomForest = new Utils.dt.RandomForest(iaConfig, CONSTANTS.MAX_NUMBER_OF_SOLUTIONS);
+      return randomForest.predict(Data.getResponses())
+    }
+
+    /**
+     * Recommend one game using ID3 Decision Tree Algorithm
+     * @returns [{game:id}]
+     */
+    function kdTree_predict() {
+
+      //debugger;
+
+      var responses = Data.getResponses();
+      var training = Data.getTrainingSet();
+      var weigths = Data.getWeigths();
+
+      var similarity = function (a,b) {
+
+        //debugger;
+
+        console.log('-->' + a.name + ' vs ' + b.name)
+
+        var distance = 0;
+
+        Utils._.forEach(a, function(value,key) {
+
+          console.log(a[key])
+          console.log(b[key])
+          console.log(weigths[key])
+
+          distance += Math.abs( a[key] - b[key] ) * weigths[key] || 0;
+          console.log(distance)
+        } );
+
+        console.log(a.name + ' vs ' + b.name + '=' + distance)
+        //console.log('a? ' + JSON.stringify(a))
+        //console.log('b? ' + JSON.stringify(b))
+
+        return distance;
+      }
+
+      //var attrs = Utils._.difference(Utils._.keys(Utils._.first(training)), CONSTANTS.ATTR_TO_IGNORE);
+      var attrs = Utils._.difference(Utils._.keys(responses), CONSTANTS.ATTR_TO_IGNORE);
+
+      var tree = new Utils.kdTree(training, similarity, attrs);
+      var conclusion = tree.nearest(responses, CONSTANTS.MAX_NUMBER_OF_SOLUTIONS);
+
+      return Utils._.map(Utils._.sortBy(conclusion,1),0);
+
+    }
+
   }
 
-  /**
-   * Get the data from a game
-   *
-   * @param id
-   * @returns {*}
-   */
-  function getGame(id) {
-    return Utils.jmespath.search(knowledge,"training[?id=='"+id+"']");
+  Utils.$inject = ['$log'];
+  function Utils($log) {
+
+    $log.info('Loading Vendors');
+
+    return {
+      _: window._,
+      jmespath: window.jmespath,
+      dt:window.dt,
+      kdTree: window.kdTree,
+      BinaryHeap: window.BinaryHeap
+    };
   }
 
-}
+  Errors.$inject = ['$window'];
+  function Errors ($window) {
+
+    return function(exception, cause) {
+
+      console.log('error ****************');
+      console.log(exception);
+      console.log(cause);
+
+      //$window.location.href = '/';
+    };
+  }
 
 })();

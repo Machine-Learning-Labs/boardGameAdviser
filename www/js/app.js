@@ -11,22 +11,35 @@ angular
   .module('boardGameAdviser', ['ionic', 'ngAnimate'])
 
   .constant('CONSTANTS', {
-    NUMBER_OF_TREES: 7,
+    DEFAULT_ENGINE: 'kdTree',
+    MAX_NUMBER_OF_SOLUTIONS: 5,
     ATTR_TO_IGNORE : ['id','name','description', 'prize', 'url'],
     MIN_PERCENT_VALID: 1,
     AUTOSEND_SECONDS: 300,
-    URL_LOCAL_TRAINING_SET: './assets/default.json',
+    URL_LOCAL_TRAINING_SET: './assets/training.json',
     URL_REMOTE_TRAINING_SET: 'http://www.mordorgames.es/datos/',
-    KEYWORD_DISCARD: 'discard'
+    KEYWORD_DISCARD: 'discard',
+    SELECTED_ALGORITHM: ''
   })
 
-  .run(function($ionicPlatform) {
+  .run(function($ionicPlatform, $ionicLoading, $log, Data) {
+
+    $ionicLoading.show({ template: 'Cargando...' });
+
+    Data.start()
+      .then(function(res) {
+        $log.info(res + ' juegos cargados')
+        $ionicLoading.hide();
+      })
+      .catch(function(res) {
+        $log.err(res);
+        $ionicLoading.hide();
+      });
 
     $ionicPlatform.ready(function() {
 
       if(window.cordova && window.cordova.plugins.Keyboard) {
-        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-        // for form inputs)
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard for form inputs)
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
         // Don't remove this line unless you know what you are doing. It stops the viewport
