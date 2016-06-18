@@ -12,9 +12,9 @@ angular
 
   .constant('CONSTANTS', {
     DEFAULT_ENGINE: 'randomForest', /* id3 OR randomForest OR kdTree */
-    MAX_NUMBER_OF_SOLUTIONS: 5,
+    MAX_NUMBER_OF_SOLUTIONS: 3,
     KEYWORD_DISCARD: 'discard',
-    ATTR_TO_IGNORE : ['id','name','description', 'prize', 'url'],
+    ATTR_TO_IGNORE : ['id','name','description', 'prize', 'url', 'image', 'guide'],
     STRING_ATTR_MAP: {
       modojuego:["competitivo","mixto","cooperativo"],
       tipojuego:["investigar", "agilizar", "imaginar","rolear", "apostar","gestion","invadir"],

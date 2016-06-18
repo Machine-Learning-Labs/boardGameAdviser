@@ -33,8 +33,8 @@
 
   }
 
-  HomeController.$inject = ['Data', '$state', '$ionicLoading'];
-  function HomeController(Data, $state, $ionicLoading) {
+  HomeController.$inject = ['Data', '$state'];
+  function HomeController(Data, $state) {
 
     var vm = this;
       vm.ready = true;
@@ -116,9 +116,10 @@
     vm.reset = reset;
     vm.goToLink = goToLink;
 
-    Logic.predict(CONSTANTS.DEFAULT_ENGINE).then(function(res) {
-      vm.alternatives = res;
-    });
+    Logic.predict(CONSTANTS.DEFAULT_ENGINE)
+      .then(function(res) { vm.alternatives = res; })
+      .catch(function(err) {
+        $state.go('home'); });
 
     ////////////
 
@@ -160,8 +161,6 @@
     ////////////
 
     function init(data) {
-
-      debugger
 
       //vm.responses = ;
       vm.questions.priority = {

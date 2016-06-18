@@ -131,10 +131,10 @@
       var opt2 = jmespath.search(knowledge, minPlayersFilter + " \| " + minAgeFilter);
       var opt3 = jmespath.search(knowledge, minPlayersFilter);
 
-      if (opt1.length>0)      { reply = opt1; }
-      else if (opt2.length>0) { reply = opt2; }
-      else if (opt3.length>0) { reply = opt3; }
-      else                    { reply = Utils._.clone(knowledge); }
+      if (opt1.length>=CONSTANTS.MAX_NUMBER_OF_SOLUTIONS)       { reply = opt1; }
+      else if (opt2.length>=CONSTANTS.MAX_NUMBER_OF_SOLUTIONS)  { reply = opt2; }
+      else if (opt3.length>=CONSTANTS.MAX_NUMBER_OF_SOLUTIONS)  { reply = opt3; }
+      else                                                      { reply = Utils._.clone(knowledge); }
 
       return reply;
     }
@@ -250,12 +250,19 @@
         var ids = [];
         var games = [];
 
+        // Gather the data
+        var responses = Data.getResponses();
+
         // Predict
+        if (Utils._.keys(responses).length<=0) {
+          return defer.reject('Not enought responses given');
+        }
+
         switch (engine) {
-          case "id3": ids = id3_predict(); break;
-          case "randomForest": ids = randomForest_predict(); break;
+          case "id3": ids = id3_predict(responses); break;
+          case "randomForest": ids = randomForest_predict(responses); break;
           case "kdTree":
-          default: ids = kdTree_predict(); break;
+          default: ids = kdTree_predict(responses); break;
         }
 
         // Filter
@@ -269,9 +276,10 @@
 
     /**
      * Recommend one game using ID3 Decision Tree Algorithm
+     * @param responses
      * @returns [{game:id}]
      */
-    function id3_predict() {
+    function id3_predict(responses) {
 
       // Building Decision Tree
       var iaConfig = {
@@ -281,15 +289,16 @@
       };
 
       var decisionTree = new Utils.dt.DecisionTree(iaConfig);
-      var conclusion = [decisionTree.predict(Data.getResponses())];
+      var conclusion = [decisionTree.predict(responses)];
       return conclusion;
     }
 
     /**
      * Recommend one game using RandomForest Algorithm
+     * @param responses
      * @returns [{game:id}]
      */
-    function randomForest_predict() {
+    function randomForest_predict(responses) {
 
       // Building Random Forest
       var iaConfig = {
@@ -299,17 +308,17 @@
       };
 
       var randomForest = new Utils.dt.RandomForest(iaConfig, CONSTANTS.MAX_NUMBER_OF_SOLUTIONS);
-      var conclusion = randomForest.predict(Data.getResponses());
+      var conclusion = randomForest.predict(responses);
       return Utils._.keys(conclusion);
     }
 
     /**
      * Recommend one game using KdTree Algorithm
+     * @param responses
      * @returns [{game:id}]
      */
-    function kdTree_predict() {
+    function kdTree_predict(responses) {
 
-      var responses = Data.getResponses();
       var training = Data.getTrainingSet();
       var weigths = Data.getWeigths();
 
