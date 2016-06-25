@@ -3,12 +3,26 @@
 
   angular
     .module('boardGameAdviser')
-    .filter('labelize',labelize);
+    .filter('labelize',labelize)
+    .filter('youtubize',youtubize)
+    .filter('imageUrilize',imageUrilize);
 
-  /*
-   question.currentQuestion = question
-   question.currentQuestion.reply = value
-   */
+  youtubize.$inject = ['CONSTANTS', '$sce'];
+  function youtubize(CONSTANTS, $sce) {
+
+    return function(value) {
+      var url = CONSTANTS.YOUTUBE_URL + value + '?rel=0&hd=1';
+      return $sce.trustAsResourceUrl(url);
+    };
+  }
+
+  imageUrilize.$inject = ['CONSTANTS'];
+  function imageUrilize(CONSTANTS) {
+
+    return function(value) {
+      return CONSTANTS.URL_IMAGES + value + '.jpg';
+    };
+  }
 
   labelize.$inject = ['Utils'];
   function labelize(Utils) {

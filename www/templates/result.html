@@ -5,23 +5,26 @@
 
     <div class="card" ng-repeat="item in result.alternatives">
 
-      <div class="item item-avatar" >
+      <div class="item item-avatar">
 
+        <img style="border-radius: 0%;" src="/img/m-de-mordor.png">
         <h2>{{ item.name }}</h2>
 
         <div class="animate-switch-container" ng-switch on="item.prize">
-          <div ng-switch-when="mini">Menos de 15€</div>
-          <div ng-switch-when="cheap">Entre 25€ y 40€</div>
-          <div ng-switch-when="medium">Entre 40€ y 60€</div>
-          <div ng-switch-when="super">Más de 60€</div>
+          <p ng-switch-when="muybarato">Máximo 10€</p>
+          <p ng-switch-when="barato">Entre 10€ y 20€</p>
+          <p ng-switch-when="normal">Entre 21€ y 50€</p>
+          <p ng-switch-when="caro">Más de 50€</p>
         </div>
+
       </div>
 
       <div class="item item-body">
-        <!-- <img class="full-image" src="delorean.jpg"> -->
+
+        <img ng-src="{{ item.id | imageUrilize }}"/>
 
         <blockquote>
-          {{item.description}}
+          {{ item.description }}
         </blockquote>
 
         <ul>
@@ -30,7 +33,12 @@
           <li>Duración: {{ item.duracion}}</li>
         </ul>
 
-        <a href="#" ng-click="result.goToLink(item.url)" class="button button-block icon-left ion-bag">Ver ficha</a>
+        <br>
+        <div class="videoWrapper" ng-if="item.tutorial">
+          <iframe src="{{ item.tutorial | youtubize }}" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <a href="#" ng-click="result.goToLink(item.url)" class="button button-balanced button-block icon-left ion-bag">Ver ficha</a>
 
       </div>
 

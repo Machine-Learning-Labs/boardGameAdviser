@@ -11,7 +11,7 @@ angular
   .module('boardGameAdviser', ['ionic', 'ngAnimate'])
 
   .constant('CONSTANTS', {
-    DEFAULT_ENGINE: 'randomForest', /* id3 OR randomForest OR kdTree */
+    DEFAULT_ENGINE: 'kdTree', /* id3 OR randomForest OR kdTree */
     MAX_NUMBER_OF_SOLUTIONS: 3,
     KEYWORD_DISCARD: 'discard',
     ATTR_TO_IGNORE : ['id','name','description', 'prize', 'url', 'image', 'guide'],
@@ -21,10 +21,13 @@ angular
       atmosfera: ["discard", "ciencia", "fantasia","historic", "medieval","zombies"],
       ocupacion:["small", "normal","large"]
     },
-    AUTOSEND_SECONDS: 300,
-    MIN_PERCENT_VALID: 12,
+    AUTOSEND_SECONDS: 400,
+    MIN_PERCENT_VALID: 42,
     URL_LOCAL_TRAINING_SET: './assets/training.json',
-    URL_REMOTE_TRAINING_SET: 'http://www.mordorgames.es/datos/'
+    URL_REMOTE_TRAINING_SET: 'http://www.mordorgames.es/datos/',
+    URL_IMAGES: 'http://www.mordorgames.es/datos/images/',
+    URL_GAMES: 'http://www.mordorgames.es/tienda',
+    YOUTUBE_URL: 'https://www.youtube.com/embed/'
   })
 
   .run(function($ionicPlatform, $ionicLoading, $log, Data) {
@@ -79,12 +82,6 @@ angular
         url: '/result',
         templateUrl: 'templates/result.html',
         controller: 'ResultController as result'
-      })
-
-      .state('admin', {
-        url: '/admin',
-        templateUrl: 'templates/admin.html',
-        controller: 'AdminController as admin'
       });
 
     // if none of the above states are matched, use this as the fallback
