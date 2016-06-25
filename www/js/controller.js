@@ -6,29 +6,18 @@
     .controller('barController', barController)
     .controller('HomeController', HomeController)
     .controller('QuestionController', QuestionController)
-    .controller('ResultController', ResultController)
-    .controller('AdminController', AdminController);
+    .controller('ResultController', ResultController);
 
   barController.$inject = ['$state'];
   function barController($state) {
 
     var vm = this;
-      vm.counter = 0;
       vm.secret = secret;
 
     ////////////
 
     function secret() {
-
-      vm.counter++;
-      console.log(vm.counter)
-
-      if (vm.counter>=7) {
-        $state.go('admin');
-        vm.counter = 0;
-      } else {
-        $state.go('home');
-      }
+      $state.go('home');
     }
 
   }
@@ -119,73 +108,20 @@
     Logic.predict(CONSTANTS.DEFAULT_ENGINE)
       .then(function(res) { vm.alternatives = res; })
       .catch(function(err) {
-        $state.go('home'); });
+        $state.go('home');
+      });
 
     ////////////
 
     function goToLink(url) {
-      window.open(url,'_system');
+
+      var remote_url = CONSTANTS.URL_GAMES + url;
+      window.open(remote_url,'_system');
     }
 
     function reset() {
       Data.clear();
       $state.go('home');
-    }
-  }
-
-  AdminController.$inject = ['Data', 'Logic', '$ionicLoading'];
-  function AdminController(Data, Logic, $ionicLoading) {
-
-    var vm = this;
-    vm.choice = 'kdTree';
-    vm.alternatives = [];
-    vm.responses = {};
-    vm.questions = {
-      ranges: [],
-      combos: []
-    };
-
-    vm.think = think;
-    vm.clear = clear;
-
-    // Manual data bootstrap
-    Data.start()
-      .then(function(res) {
-        $ionicLoading.hide();
-        init(Data.getAllQuestions());
-      })
-      .catch(function(res) {
-        $ionicLoading.hide();
-      });
-
-    ////////////
-
-    function init(data) {
-
-      //vm.responses = ;
-      vm.questions.priority = {
-        "minedad": data['minedad'],
-        "minjugadores": data['minjugadores'],
-        "maxjugadores": data['maxjugadores'],
-      }
-
-      vm.questions.ranges = data;
-      vm.questions.combos = data;
-
-    }
-
-    function think(engine) {
-
-      Logic.predict(engine).then(function(res) {
-        vm.alternatives = res;
-      });
-
-    }
-
-    function clear() {
-      Data.clear();
-      vm.responses = {};
-      vm.alternatives = [];
     }
   }
 

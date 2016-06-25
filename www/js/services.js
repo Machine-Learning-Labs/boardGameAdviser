@@ -156,6 +156,7 @@
      * @returns {boolean}
      */
     function clear() {
+
       responses = null;
       responses = {};
       return _.isNull(responses);
