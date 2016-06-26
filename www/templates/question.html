@@ -1,6 +1,5 @@
 <!-- Ejemplo de pregunta ************************************************************** -->
 <ion-view view-title="Questions Page" cache-view="false">
-
   <ion-content class="padding" on-swipe-right="question.previous()" on-swipe-left="question.ignore()">
 
     <div class="card" ng-class="question.style">
@@ -38,7 +37,6 @@
         </div>
 
 
-
         <div class="row">
           <div class="col col-80 col-offset-10">
             <progress class="padding" id="progressbar" max="100" value="{{ question.currentQuestion.percent || 0 }}"></progress>
@@ -57,7 +55,7 @@
 
     <div class="row" ng-show="question.prematureFinish">
       <div class="col">
-        <button ui-sref="result" class="button button-block button-assertive">
+        <button ui-sref="app.result" class="button button-block button-assertive">
           ¡Vale ya! Recomiéndame algo
         </button>
       </div>

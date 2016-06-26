@@ -383,7 +383,7 @@
       $log.error(exception)
       $log.error(cause)
 
-      $window.location.href = '/';
+      //$window.location.href = '/';
     };
   }
 

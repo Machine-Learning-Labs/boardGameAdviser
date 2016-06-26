@@ -38,8 +38,14 @@
 
     <ion-pane>
 
-      <ion-header-bar align-title="center" class="bar bar-light">
-        <h1 class="title" ng-controller="barController as navBar">
+      <ion-header-bar align-title="center" class="bar bar-light" ng-controller="BarController as navBar">
+        <div class="buttons buttons-left header-item">
+          <span class="left-buttons">
+            <button ng-click="navBar.toggleLeft()" class="button button-icon button-clear ion-navicon"></button>
+          </span>
+        </div>
+
+        <h1 class="title">
           <a ng-click="navBar.secret()">
             <img class="padding-top" src="img/mordor-games-logo.png" height="36px"/>
           </a>
