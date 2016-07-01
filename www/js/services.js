@@ -3,12 +3,101 @@
 
   angular
     .module('boardGameAdviser')
+    .factory('Inventory', Inventory)
     .factory('Data', Data)
     .factory('Logic', Logic)
     .factory('Utils', Utils)
     .factory('$exceptionHandler', Errors );
 
+  // Inventory /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Inventory.$inject = ['CONSTANTS', '$q', 'Loki'];
+  function Inventory(CONSTANTS, $q, Loki) {
 
+    var _db;
+    var _birthdays;
+
+    var service = {
+      initDB: initDB,
+      getAllGamesSaved: getAllGamesSaved,
+      addGame: addGame,
+      deleteGame: deleteGame
+    };
+
+    return service;
+
+    /////////////
+
+    /**
+     * Initialize the db engine
+     */
+    function initDB() {
+
+      var fsAdapter = new LokiCordovaFSAdapter(CONSTANTS.DB.PREFIX);
+
+      _db = new Loki(
+        CONSTANTS.DB.NAME,
+        {
+          autosave: CONSTANTS.DB.AUTOSAVE,
+          autosaveInterval: CONSTANTS.DB.INTERVAL,
+          adapter: fsAdapter
+        });
+    };
+
+    /**
+     * Save a game
+     * @param game
+     */
+    function addGame(game) {
+      _birthdays.insert(game);
+    };
+
+    /**
+     * Delete a game
+     * @param game
+     */
+    function deleteGame(game) {
+      _birthdays.remove(game);
+    };
+
+    /**
+     * Return all the save games
+     * @returns {*}
+     */
+    function getAllBirthdays() {
+
+      return $q(function (resolve, reject) {
+
+        var options = {
+          birthdays: {
+            proto: Object,
+            inflate: function (src, dst) {
+              var prop;
+              for (prop in src) {
+                if (prop === 'Date') {
+                  dst.Date = new Date(src.Date);
+                } else {
+                  dst[prop] = src[prop];
+                }
+              }
+            }
+          }
+        };
+
+        _db.loadDatabase(options, function () {
+          _birthdays = _db.getCollection('birthdays');
+
+          if (!_birthdays) {
+            _birthdays = _db.addCollection('birthdays');
+          }
+
+          resolve(_birthdays.data);
+        });
+      });
+    };
+
+  }
+
+  // Data //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   Data.$inject = ['CONSTANTS', 'Utils', '$http', '$q'];
   function Data(CONSTANTS, Utils, $http, $q) {
 
@@ -115,7 +204,6 @@
       return Utils._.clone(weigth);
     }
 
-
     /**
      * Returns a copy of games that satisfy the three rules by orders (minPlayer, minAge, maxPlayer)
      * @returns {*}
@@ -206,7 +294,6 @@
       return reply;
     }
 
-
     /**
      * Locate and returns a question before some pointer
      * @param reference
@@ -226,6 +313,7 @@
 
   }
 
+  // Logic /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   Logic.$inject = ['CONSTANTS', 'Data', 'Utils', '$q', '$timeout'];
   function Logic(CONSTANTS, Data, Utils, $q, $timeout) {
 
@@ -361,6 +449,7 @@
 
   }
 
+  // Utils  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   Utils.$inject = ['$log'];
   function Utils($log) {
 
