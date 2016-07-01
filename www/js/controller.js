@@ -41,14 +41,26 @@
    * @param $state
    * @constructor
    */
-  MenuController.$inject = ['$state'];
-  function MenuController($state) {
+  MenuController.$inject = ['CONSTANTS', '$state'];
+  function MenuController(CONSTANTS, $state) {
 
     var vm = this;
     vm.close = close;
     vm.message = message;
+    vm.link = link;
 
     ////////////
+
+    function link(id) {
+      var remote_url;
+      switch (id) {
+        case "news": remote_url = CONSTANTS.URL_BLOG; break;
+        case "shop":
+        default: remote_url = CONSTANTS.URL_SHOP; break;
+      }
+
+      window.open(remote_url,'_system');
+    }
 
     function message() {
       $state.go('app.home');

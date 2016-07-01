@@ -26,9 +26,14 @@
           Inicio
         </ion-item>
 
-        <ion-item menu-close ui-sref="app.news">
+        <ion-item menu-close ng-click="menu.link('news')">
           <i class="icon ion-ios-paper"></i>
           Noticias
+        </ion-item>
+
+        <ion-item menu-close ng-click="menu.link('shop')">
+          <i class="icon ion-bag"></i>
+          Tienda
         </ion-item>
 
         <ion-item menu-close ui-sref="app.questions">

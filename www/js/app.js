@@ -8,7 +8,7 @@
 // the 2nd parameter is an array of 'requires'
   angular
 
-    .module('boardGameAdviser', ['ionic', 'ngAnimate'])
+    .module('boardGameAdviser', ['ionic', 'ngAnimate', 'lokijs'])
 
     .constant('CONSTANTS', {
       DEFAULT_ENGINE: 'randomForest', /* id3 OR randomForest OR kdTree */
@@ -21,12 +21,20 @@
         atmosfera: ["discard", "ciencia", "fantasia","historic", "medieval","zombies"],
         ocupacion:["small", "normal","large"]
       },
+      DB: {
+        NAME: 'gamesDB',
+        PREFIX: {"prefix": "loki"},
+        AUTOSAVE: true,
+        INTERVAL: 1000
+      },
       AUTOSEND_SECONDS: 400,
       MIN_PERCENT_VALID: 42,
       URL_LOCAL_TRAINING_SET: './assets/training.json',
       URL_REMOTE_TRAINING_SET: 'http://www.mordorgames.es/datos/',
       URL_IMAGES: 'http://www.mordorgames.es/datos/images/',
       URL_GAMES: 'http://www.mordorgames.es/tienda',
+      URL_BLOG: 'https://www.mordorgames.es/category/noticias/',
+      URL_SHOP: 'https://www.mordorgames.es/tienda/12-juegos-de-mesa',
       YOUTUBE_URL: 'https://www.youtube.com/embed/',
       NEWS_URL: 'http://www.mordorgames.es/category/noticias/feed/'
     })
