@@ -14,13 +14,13 @@
   function Inventory(CONSTANTS, $q, Loki) {
 
     var _db;
-    var _birthdays;
+    var _games;
 
     var service = {
       initDB: initDB,
       getAllGamesSaved: getAllGamesSaved,
-      addGame: addGame,
-      deleteGame: deleteGame
+      saveGame: saveGame,
+      eraseGame: eraseGame
     };
 
     return service;
@@ -35,11 +35,11 @@
       var fsAdapter = new LokiCordovaFSAdapter(CONSTANTS.DB.PREFIX);
 
       _db = new Loki(
-        CONSTANTS.DB.NAME,
+        CONSTANTS.DB.DB_NAME,
         {
           autosave: CONSTANTS.DB.AUTOSAVE,
           autosaveInterval: CONSTANTS.DB.INTERVAL,
-          adapter: fsAdapter
+          //adapter: fsAdapter
         });
     };
 
@@ -47,50 +47,46 @@
      * Save a game
      * @param game
      */
-    function addGame(game) {
-      _birthdays.insert(game);
+    function saveGame(game) {
+      _games.insert(game);
     };
 
     /**
      * Delete a game
      * @param game
      */
-    function deleteGame(game) {
-      _birthdays.remove(game);
+    function eraseGame(game) {
+      _games.remove(game);
     };
 
     /**
      * Return all the save games
      * @returns {*}
      */
-    function getAllBirthdays() {
+    function getAllGamesSaved() {
 
       return $q(function (resolve, reject) {
 
         var options = {
-          birthdays: {
+          games: {
             proto: Object,
             inflate: function (src, dst) {
               var prop;
               for (prop in src) {
-                if (prop === 'Date') {
-                  dst.Date = new Date(src.Date);
-                } else {
-                  dst[prop] = src[prop];
-                }
+                if (prop === 'Date') { dst.Date = new Date(src.Date); }
+                else { dst[prop] = src[prop]; }
               }
             }
           }
         };
 
         _db.loadDatabase(options, function () {
-          _birthdays = _db.getCollection('birthdays');
 
-          if (!_birthdays) {
-            _birthdays = _db.addCollection('birthdays');
-          }
+          _games = _db.getCollection(CONSTANTS.DB.DB_NAME);
 
-          resolve(_birthdays.data);
+          if (!_games) { _games = _db.addCollection(CONSTANTS.DB.DB_NAME); }
+
+          resolve(_games.data);
         });
       });
     };
@@ -105,12 +101,14 @@
     var knowledge = {};
     var questions = {};
     var responses = {};
+    var KEYWORD_DISCARD =  CONSTANTS.KEYWORD_DISCARD;
 
     var service = {
       start: start,
       put:put,
       clear:clear,
       getGame:getGame,
+      getGames:getGames,
       getWeigths: getWeigths,
       getResponses:getResponses,
       getTrainingSet: getTrainingSet,
@@ -189,22 +187,6 @@
     }
 
     /**
-     * Returns a clean copy of responses
-     * @returns {*}
-     */
-    function getResponses() {
-      return Utils._.clone(responses);
-    }
-
-    /**
-     * Returns a clean copy of weigths
-     * @returns {*}
-     */
-    function getWeigths() {
-      return Utils._.clone(weigth);
-    }
-
-    /**
      * Returns a copy of games that satisfy the three rules by orders (minPlayer, minAge, maxPlayer)
      * @returns {*}
      */
@@ -251,12 +233,41 @@
     }
 
     /**
+     * Returns a clean copy of responses
+     * @returns {*}
+     */
+    function getResponses() {
+      
+      var reply = Utils._.clone(responses);
+      var responsesCopy = Utils._.pickBy(reply, function(value, key) { return value!==KEYWORD_DISCARD });
+      return responsesCopy;
+    }
+
+    /**
+     * Returns a clean copy of weigths
+     * @returns {*}
+     */
+    function getWeigths() {
+      return Utils._.clone(weigth);
+    }
+
+    /**
      * Get the data from a game
      * @param id
      * @returns {*}
      */
     function getGame(id) {
       return Utils.jmespath.search(knowledge,"[?id=='"+id+"']");
+    }
+
+    /**
+     * Returns a clean copy of games
+     * @returns {*}
+     */
+    function getGames() {
+      debugger;
+      // TODO mandar sólo ids y nombres
+      return Utils._.clone(knowledge);
     }
 
     /**
@@ -435,7 +446,6 @@
 
         return distance;
       };
-
 
       var tree = new Utils.kdTree(training, similarity, attrs);
       var conclusion = tree.nearest(responses, CONSTANTS.MAX_NUMBER_OF_SOLUTIONS);

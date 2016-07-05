@@ -22,7 +22,8 @@
         ocupacion:["small", "normal","large"]
       },
       DB: {
-        NAME: 'gamesDB',
+        DB_NAME: 'gamesDB',
+        COL_NAME: 'games',
         PREFIX: {"prefix": "loki"},
         AUTOSAVE: true,
         INTERVAL: 1000
@@ -39,9 +40,12 @@
       NEWS_URL: 'http://www.mordorgames.es/category/noticias/feed/'
     })
 
-    .run(function($ionicPlatform, $ionicLoading, $log, Data) {
+    .run(function($ionicPlatform, $ionicLoading, $log, Inventory, Data) {
 
       $ionicLoading.show({ template: 'Cargando...' });
+
+      // Initialize the database.
+      Inventory.initDB();
 
       Data.start()
         .then(function(res) {
@@ -56,7 +60,8 @@
 
       $ionicPlatform.ready(function() {
 
-        if(window.cordova && window.cordova.plugins.Keyboard) {
+          if(window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+          //if(window.cordova && window.cordova.plugins.Keyboard) {
           // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard for form inputs)
           cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
@@ -123,7 +128,8 @@
           url: '/inventory',
           views: {
             'menuContent': {
-              templateUrl: 'templates/inventory.html'
+              templateUrl: 'templates/inventory.html',
+              controller: 'InventoryController as inventory'
             }
           }
         });

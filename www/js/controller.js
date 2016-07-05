@@ -69,7 +69,6 @@
     function close() {
       ionic.Platform.exitApp();
     }
-
   }
 
 
@@ -143,9 +142,11 @@
 
       $timeout(function() {
 
+        /*
         if (vm.currentQuestion.reply !==CONSTANTS.KEYWORD_DISCARD || !vm.currentQuestion.reply) {
           Data.put(vm.currentQuestion.attr, vm.currentQuestion.reply);
-        }
+        }*/
+        Data.put(vm.currentQuestion.attr, vm.currentQuestion.reply);
 
         vm.style = 'animated bounceInRight';
         vm.prematureFinish = (CONSTANTS.MIN_PERCENT_VALID<=vm.currentQuestion.percent);
@@ -234,13 +235,35 @@
    * @param $http
    * @constructor
    */
-  InventoryController.$inject = ['CONSTANTS', '$http'];
-  function InventoryController(CONSTANTS, $http) {
+  InventoryController.$inject = ['CONSTANTS', 'Data', 'Inventory'];
+  function InventoryController(CONSTANTS, Data, Inventory) {
 
     var vm = this;
 
+      vm.own = [];
+      vm.new = [];
+      vm.addGame = addGame;
+      vm.delGame = delGame;
+
+    vm.games = Data.getGames();
+
+    Inventory.getAllGamesSaved().then(function (settings) {
+      vm.games = settings;
+    });
+
     ////////////
 
+    addGame({id: '123'})
+    addGame({id: '456'})
+    addGame({id: '789'})
+
+    function addGame(id) {
+      Inventory.saveGame(id);
+    }
+
+    function delGame(id) {
+      Inventory.eraseGame(id);
+    }
   }
 
 })();
