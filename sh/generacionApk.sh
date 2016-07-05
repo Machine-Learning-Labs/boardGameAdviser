@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p releases/android
+mkdir -p ../../releases/android
 
 ruta_out="platforms/android/build/outputs/apk/"
 nombre_apk_unsigned="android-release-unsigned.apk"
