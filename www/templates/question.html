@@ -55,7 +55,7 @@
 
     <div class="row" ng-show="question.prematureFinish">
       <div class="col">
-        <button ui-sref="app.result" class="button button-block button-assertive">
+        <button ui-sref="app.result" analytics-on="click" analytics-event="quiz_end_now" class="button button-block button-assertive">
           ¡Vale ya! Recomiéndame algo
         </button>
       </div>

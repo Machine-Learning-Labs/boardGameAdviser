@@ -8,7 +8,7 @@
 // the 2nd parameter is an array of 'requires'
   angular
 
-    .module('boardGameAdviser', ['ionic', 'ngAnimate', 'lokijs'])
+    .module('boardGameAdviser', ['ionic', 'ngAnimate', 'lokijs', 'angulartics', 'angulartics.google.analytics'])
 
     .constant('CONSTANTS', {
       DEFAULT_ENGINE: 'randomForest', /* id3 OR randomForest OR kdTree */

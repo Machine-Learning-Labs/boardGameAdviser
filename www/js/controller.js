@@ -105,8 +105,8 @@
    * @param $timeout
    * @constructor
    */
-  QuestionController.$inject = ['CONSTANTS', 'Data', '$state', '$timeout'];
-  function QuestionController(CONSTANTS, Data, $state, $timeout) {
+  QuestionController.$inject = ['CONSTANTS', 'Data', '$state', '$timeout', '$analytics'];
+  function QuestionController(CONSTANTS, Data, $state, $timeout, $analytics) {
 
     var vm = this;
     vm.style = '';
@@ -134,6 +134,7 @@
 
     }
 
+    // TODO finish this metohd
     function previous() {
       vm.currentQuestion = Data.getPreviousQuestion(vm.currentQuestion.attr);
     }
@@ -156,6 +157,9 @@
 
       vm.style = 'animated bounceOutLeft';
 
+      $analytics.pageTrack('/questions');
+      $analytics.eventTrack('question', {  category: vm.currentQuestion.attr, label: vm.currentQuestion.reply });
+
     }
 
   }
@@ -168,8 +172,8 @@
    * @param $state
    * @constructor
    */
-  ResultController.$inject = ['CONSTANTS', 'Data', 'Logic','$state'];
-  function ResultController(CONSTANTS, Data, Logic, $state) {
+  ResultController.$inject = ['CONSTANTS', 'Utils', 'Data', 'Logic','$state', '$analytics'];
+  function ResultController(CONSTANTS, Utils, Data, Logic, $state, $analytics) {
 
     var vm = this;
     vm.input = {};
@@ -180,7 +184,17 @@
     vm.goToLink = goToLink;
 
     Logic.predict(CONSTANTS.DEFAULT_ENGINE)
-      .then(function(res) { vm.alternatives = res; })
+      .then(function(res) {
+
+        vm.alternatives = res;
+
+        $analytics.pageTrack('/result');
+
+        Utils._.each(res,function(game) {
+          $analytics.eventTrack('result', { category: 'results', label: game.name });
+        })
+
+      })
       .catch(function(err) {
         $state.go('app.home');
       });
@@ -188,6 +202,9 @@
     ////////////
 
     function goToLink(url) {
+
+      $analytics.pageTrack('/result');
+      $analytics.eventTrack('out', { category: 'result_buy', label: url });
 
       var remote_url = CONSTANTS.URL_GAMES + url;
       window.open(remote_url,'_system');

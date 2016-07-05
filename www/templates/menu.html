@@ -21,34 +21,34 @@
     <ion-content>
 
       <ion-list>
-        <ion-item menu-close ui-sref="app.home">
+        <ion-item menu-close analytics-on="click" analytics-event="menu_home" ui-sref="app.home">
           <i class="icon ion-ios-home"></i>
           Inicio
         </ion-item>
 
-        <ion-item menu-close ng-click="menu.link('news')">
+        <ion-item analytics-on="click" analytics-event="menu_news" menu-close ng-click="menu.link('news')">
           <i class="icon ion-ios-paper"></i>
           Noticias
         </ion-item>
 
-        <ion-item menu-close ng-click="menu.link('shop')">
+        <ion-item analytics-on="click" analytics-event="menu_shop" menu-close ng-click="menu.link('shop')">
           <i class="icon ion-bag"></i>
           Tienda
         </ion-item>
 
-        <ion-item menu-close ui-sref="app.questions">
+        <ion-item analytics-on="click" analytics-event="menu_quiz" menu-close ui-sref="app.questions">
           <i class="icon ion-android-locate"></i>
           Recomendar
         </ion-item>
 
         <!--
-        <ion-item menu-close ui-sref="app.inventory">
+        <ion-item menu-close analytics-on="click" analytics-event="menu_inventory" ui-sref="app.inventory">
           <i class="icon ion-ios-bookmarks"></i>
           Mis juegos
         </ion-item>
         -->
 
-        <ion-item menu-close ng-click="menu.close()">
+        <ion-item analytics-on="click" analytics-event="menu_exit" menu-close ng-click="menu.close()">
           <i class="icon ion-android-exit"></i>
           Exit
         </ion-item>
