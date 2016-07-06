@@ -11,7 +11,7 @@
     .module('boardGameAdviser', ['ionic', 'ngAnimate', 'lokijs', 'angulartics', 'angulartics.google.analytics'])
 
     .constant('CONSTANTS', {
-      DEFAULT_ENGINE: 'randomForest', /* id3 OR randomForest OR kdTree */
+      DEFAULT_ENGINE: 'kdTree', /* id3 OR randomForest OR kdTree */
       MAX_NUMBER_OF_SOLUTIONS: 3,
       KEYWORD_DISCARD: 'discard',
       ATTR_TO_IGNORE : ['id','name','description', 'prize', 'url', 'image', 'guide'],
