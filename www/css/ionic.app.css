@@ -9742,6 +9742,21 @@ a.button {
 .card .item {
   background-color: #F5F5F5; }
 
+ion-content {
+  background-color: #FFF;
+  background-image: url("../img/background.png");
+  background-position: bottom;
+  background-repeat: no-repeat; }
+
+.full-image {
+  max-width: 500px; }
+
+.has-footer {
+  bottom: 70px; }
+
+.question_title {
+  text-transform: uppercase; }
+
 .videoWrapper {
   position: relative;
   padding-bottom: 56.25%;

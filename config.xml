@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.boardgameadviser434832" version="0.9-rc4-kdTree" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ionicframework.boardgameadviser434832" version="0.9-rc5-kdTree" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Mordor Games</name>
   <description>Recomendador de Juegos de Mesa</description>
   <author email="julio@mordorgames.es" href="http://www.mordorgames.es">Julio Torregrosa</author>
@@ -11,7 +11,8 @@
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="3000"/>
+  <preference name="SplashScreenDelay" value="5000"/>
+  <preference name="orientation" value="portrait" />
   <preference name="AutoHideSplashScreen" value="true" />
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>

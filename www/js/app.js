@@ -24,7 +24,7 @@
       DB: {
         DB_NAME: 'gamesDB',
         COL_NAME: 'games',
-        PREFIX: {"prefix": "loki"},
+        PREFIX: {"prefix": "mordor"},
         AUTOSAVE: true,
         INTERVAL: 1000
       },
