@@ -19,7 +19,7 @@ var inputFile = { filename: "input.csv" || process.env.INPUT };
 
 var parse = function(resolve,reject) {
 
-	csv.parse( { filename:"Input.csv"},
+	csv.parse( { filename:"training_data.csv"},
 		(err,json) => {
 			if (err) { reject(err); }
 			resolve(json);
@@ -28,7 +28,7 @@ var parse = function(resolve,reject) {
 
 var save = function(input) {
 
-	csv.writeJsonToFile({ filename: "output.json", json: input }, (err) => { if (err) { fail(err); }  });
+	csv.writeJsonToFile({ filename: "training_data.json", json: input }, (err) => { if (err) { fail(err); }  });
 };
 
 var fail = function(reason) {
@@ -42,4 +42,5 @@ var p1 = new Promise(parse);
 
 console.log('No olvidar: ')
 console.log('* formatear')
-console.log('* quitar los tutorial vacio')
+console.log('* quitar las dobles "')
+console.log('* quitar los popular vacio')

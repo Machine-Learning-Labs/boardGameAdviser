@@ -57,23 +57,23 @@
       "text": "¿Quieres un juego amistoso o de Fastidiar a tu oponente?",
       "replies": [
         {
-          "label": "No, sin nada",
+          "label": "Amistoso",
           "value": 1
         },
         {
-          "label": "Sí, un pequeño toque",
+          "label": "Fastidiar un poquito",
           "value": 2
         },
         {
-          "label": "Sí, con algo para liarla un poco",
+          "label": "Fastidiar algo mas para liarla un poco",
           "value": 3
         },
         {
-          "label": "Si, con bastante",
+          "label": "Con bastante fastidio",
           "value": 4
         },
         {
-          "label": "Si, con mucho, no se hacen prisioneros!!!",
+          "label": "Con mucho, no se hacen prisioneros!!!",
           "value": 5
         }
       ]
@@ -83,7 +83,7 @@
       "text": "¿Buscas juegos serios o reirte mucho durante la partida?",
       "replies": [
         {
-          "label": "Lo prefiero serio, que corra la sangre",
+          "label": "Lo prefiero serio",
           "value": 1
         },
         {
@@ -157,7 +157,7 @@
       "text": "¿Quieres que cada turno tengas muchas opciones de hacer cosas?",
       "replies": [
         {
-          "label": "Si, quero hacer muchas cosas en mi turno",
+          "label": "Si, quiero hacer muchas cosas en mi turno",
           "value": 1
         },
         {
@@ -201,11 +201,11 @@
       "text": "¿Qué grado de inocencia quieres que tenga el juego?",
       "replies": [
         {
-          "label": "No, todos somos todos adultos.",
+          "label": "Ninguno, todos somos adultos.",
           "value": 1
         },
         {
-          "label": "No demasiado serio",
+          "label": "Que no sea demasiado serio",
           "value": 2
         },
         {
@@ -280,7 +280,7 @@
     },
     "modojuego": {
       "type": "text",
-      "text": "¿Quieres jugar todos contra el juego?",
+      "text": "¿Quieres jugar todos contra el juego de forma cooperativa?",
       "replies": [
         {
           "label": "No, cada uno por su lado y que gane el mejor",
@@ -313,7 +313,7 @@
           "value": "gestion"
         },
         {
-          "label": "invadir/pelear, que si no hay sangre me quedo con hambre",
+          "label": "invadir/pelear, me gusta ir minando a mis oponentes",
           "value": "invadir"
         },
         {
@@ -419,7 +419,7 @@
           "value": "12"
         },
         {
-          "label": "Todos somos adultos y lo dificil es nuestra religion",
+          "label": "Todos somos adultos",
           "value": "14"
         }
       ]
@@ -485,13 +485,13 @@
     "minjugadores": 1,
     "minedad": 1,
     "maxjugadores": 1,
-    "complejidad": 1,
-    "duracion": 0.9,
-    "tipojuego": 0.8,
-    "modojuego": 0.8,
-    "suerte": 0.7,
-    "picaresca": 0.7,
-    "puteo": 0.6,
+    "complejidad": 0.7,
+    "duracion": 0.4,
+    "tipojuego": 0.7,
+    "modojuego": 0.9,
+    "suerte": 0.6,
+    "picaresca": 0.8,
+    "puteo": 0.9,
     "rapidez": 0.5,
     "humor": 0.4,
     "adictivo": 0.4,
@@ -499,7 +499,7 @@
     "educativo": 0.2,
     "familia": 0.2,
     "ocupacion": 0.1,
-    "infantil": 0.1
+    "infantil": 0.7
   },
   "training": [
     {
