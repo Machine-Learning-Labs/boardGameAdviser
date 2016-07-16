@@ -9745,8 +9745,10 @@ a.button {
 ion-content {
   background-color: #FFF;
   background-image: url("../img/background.png");
+  background-repeat: no-repeat;
+  background-size: contain;
   background-position: bottom;
-  background-repeat: no-repeat; }
+  margin: 0 10px 0 10px; }
 
 .full-image {
   max-width: 500px; }
