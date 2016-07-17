@@ -235,6 +235,9 @@
     // TODO 2 -> filter from recomendations
     // TODO 3 -> control if select all
 
+    // TODO subir version
+    // TODO descomentar acceso al fs
+
     Inventory.getAllGamesSaved().then(function (saved) {
 
       if (vm.all.length===0) {
