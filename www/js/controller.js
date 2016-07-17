@@ -8,7 +8,6 @@
     .controller('HomeController', HomeController)
     .controller('QuestionController', QuestionController)
     .controller('ResultController', ResultController)
-    .controller('NewsController', NewsController)
     .controller('InventoryController', InventoryController);
 
   /**
@@ -78,16 +77,16 @@
    * @param $state
    * @constructor
    */
-  HomeController.$inject = ['Data', '$state'];
-  function HomeController(Data, $state) {
+  HomeController.$inject = ['Data', '$state', '$analytics'];
+  function HomeController(Data, $state, $analytics) {
 
     var vm = this;
       vm.ready = true;
       vm.textButton = "Adelante";
       vm.run = run;
 
-
     Data.clear();
+    $analytics.pageTrack('/home');
 
     ////////////
 
@@ -114,8 +113,10 @@
     vm.save = save;
     vm.ignore = ignore;
     vm.previous = previous;
+    vm.counter = 0;
 
     next();
+    $analytics.pageTrack('/question/'+vm.counter++);
 
     ////////////
 
@@ -143,10 +144,6 @@
 
       $timeout(function() {
 
-        /*
-        if (vm.currentQuestion.reply !==CONSTANTS.KEYWORD_DISCARD || !vm.currentQuestion.reply) {
-          Data.put(vm.currentQuestion.attr, vm.currentQuestion.reply);
-        }*/
         Data.put(vm.currentQuestion.attr, vm.currentQuestion.reply);
 
         vm.style = 'animated bounceInRight';
@@ -157,7 +154,7 @@
 
       vm.style = 'animated bounceOutLeft';
 
-      $analytics.pageTrack('/questions');
+      $analytics.pageTrack('/question/'+vm.counter++);
       $analytics.eventTrack('question', {  category: vm.currentQuestion.attr, label: vm.currentQuestion.reply });
 
     }
@@ -188,8 +185,6 @@
 
         vm.alternatives = res;
 
-        $analytics.pageTrack('/result');
-
         Utils._.each(res,function(game) {
           $analytics.eventTrack('result', { category: 'results', label: game.name });
         })
@@ -199,11 +194,13 @@
         $state.go('app.home');
       });
 
+    $analytics.pageTrack('/result');
+
     ////////////
 
     function goToLink(url) {
 
-      $analytics.pageTrack('/result');
+      $analytics.pageTrack('/end');
       $analytics.eventTrack('out', { category: 'result_buy', label: url });
 
       var remote_url = CONSTANTS.URL_GAMES + url;
@@ -222,64 +219,44 @@
    * @param $http
    * @constructor
    */
-  NewsController.$inject = ['CONSTANTS', '$http'];
-  function NewsController(CONSTANTS, $http) {
-
-    var vm = this;
-      vm.list = {};
-      vm.init = init;
-
-    ////////////
-
-    function init() {
-      $http.get(CONSTANTS.NEWS_URL, { params: { "v": "1.0", "q": "https://www.thepolyglotdeveloper.com/feed/" } })
-        .success(function(data) {
-          vm.rssTitle = data.responseData.feed.title;
-          vm.rssUrl = data.responseData.feed.feedUrl;
-          vm.rssSiteUrl = data.responseData.feed.link;
-          vm.entries = data.responseData.feed.entries;
-        })
-        .error(function(data) {
-          console.log("ERROR: " + data);
-        });
-    }
-
-  }
-
-  /**
-   *
-   * @param CONSTANTS
-   * @param $http
-   * @constructor
-   */
-  InventoryController.$inject = ['CONSTANTS', 'Data', 'Inventory'];
-  function InventoryController(CONSTANTS, Data, Inventory) {
+  InventoryController.$inject = ['CONSTANTS', 'Data', 'Inventory', 'Utils', '$analytics'];
+  function InventoryController(CONSTANTS, Data, Inventory, Utils, $analytics) {
 
     var vm = this;
 
+      vm.all = [];
       vm.own = [];
-      vm.new = [];
       vm.addGame = addGame;
       vm.delGame = delGame;
 
-    vm.games = Data.getGames();
+    vm.all = Data.getGames();
 
-    Inventory.getAllGamesSaved().then(function (settings) {
-      vm.games = settings;
+    Inventory.getAllGamesSaved().then(function (saved) {
+
+      if (vm.all.length===0) {
+        throw "Not games loaded"
+      }
+
+      vm.own = saved;
     });
+
+    $analytics.pageTrack('/inventory');
 
     ////////////
 
-    addGame({id: '123'})
-    addGame({id: '456'})
-    addGame({id: '789'})
+    function addGame(game) {
 
-    function addGame(id) {
-      Inventory.saveGame(id);
+      vm.own.push(game);
+      Utils._.pull(vm.all,game)
+
+      Inventory.saveGame(game);
     }
 
-    function delGame(id) {
-      Inventory.eraseGame(id);
+    function delGame(game) {
+      vm.all.push(game);
+      Utils._.pull(vm.own,game)
+
+      Inventory.eraseGame(game);
     }
   }
 

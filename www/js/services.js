@@ -34,6 +34,7 @@
 
       var fsAdapter = new LokiCordovaFSAdapter(CONSTANTS.DB.PREFIX);
 
+      // TODO free the adapter on mobile or build
       _db = new Loki(
         CONSTANTS.DB.DB_NAME,
         {
@@ -237,7 +238,7 @@
      * @returns {*}
      */
     function getResponses() {
-      
+
       var reply = Utils._.clone(responses);
       var responsesCopy = Utils._.pickBy(reply, function(value, key) { return value!==KEYWORD_DISCARD });
       return responsesCopy;
@@ -265,9 +266,10 @@
      * @returns {*}
      */
     function getGames() {
-      debugger;
-      // TODO mandar sólo ids y nombres
-      return Utils._.clone(knowledge);
+
+      var allGames = Utils._.clone(knowledge);
+
+      return Utils._.map(allGames,function(item) { return {id:item.id,name:item.name}; });;
     }
 
     /**
@@ -275,7 +277,7 @@
      * @returns {Object}
      */
     function getAllQuestions() {
-      return _.mapValues(questions,function(value, key) { return _.map(value.replies, 'value'); });
+      return Utils._.mapValues(questions,function(value, key) { return _.map(value.replies, 'value'); });
     }
 
     /**
@@ -482,7 +484,7 @@
       $log.error(exception)
       $log.error(cause)
 
-      //$window.location.href = '/';
+      $window.location.href = '/';
     };
   }
 

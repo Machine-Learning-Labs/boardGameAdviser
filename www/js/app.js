@@ -77,8 +77,11 @@
       });
     })
 
-    .config(function($stateProvider, $urlRouterProvider) {
+    .config(function($stateProvider, $urlRouterProvider, $analyticsProvider) {
 
+      $analyticsProvider.virtualPageviews(false);
+      $analyticsProvider.firstPageview(true);
+      $analyticsProvider.withAutoBase(true);
 
       $stateProvider
 
@@ -112,15 +115,6 @@
             'menuContent': {
               templateUrl: 'templates/result.html',
               controller: 'ResultController as result'
-            }
-          }
-        })
-        .state('app.news', {
-          url: '/news',
-          views: {
-            'menuContent': {
-              templateUrl: 'templates/news.html',
-              controller: 'NewsController as news'
             }
           }
         })

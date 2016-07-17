@@ -3,13 +3,18 @@
   <ion-content class="padding">
     <div class="list">
 
-      <div class="item item-divider">Todos los juegos</div>
-      <a class="item" href="#">Butterfinger</a>
-      <a class="item" href="#">Butterfinger</a>
-      <a class="item" href="#">Butterfinger</a>
+      <p>
+        Aquí tienes la lista de juegos, selecciona un juego para pasarlo de una lista a otra.<br/>
+        Así no te recomendaremos juegos que ya tengas :)
+      </p>
 
       <div class="item item-divider">Mis juegos</div>
-      <a class="item" href="#">Butterfinger</a>
+      <a ng-repeat="item in inventory.own" class="item" ng-click="inventory.delGame(item)" href="#">{{ item.name }}</a>
+
+      <br/>
+
+      <div class="item item-divider">Todos los juegos</div>
+      <a ng-repeat="item in inventory.all" class="item" ng-click="inventory.addGame(item)" href="#">{{ item.name }}</a>
 
     </div>
   </ion-content>
