@@ -231,6 +231,10 @@
 
     vm.all = Data.getGames();
 
+    // TODO 1 -> mix both db
+    // TODO 2 -> filter from recomendations
+    // TODO 3 -> control if select all
+
     Inventory.getAllGamesSaved().then(function (saved) {
 
       if (vm.all.length===0) {
