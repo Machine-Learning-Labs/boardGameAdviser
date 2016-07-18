@@ -9,12 +9,12 @@
       </p>
 
       <div class="item item-divider">Mis juegos</div>
-      <a ng-repeat="item in inventory.own" class="item" ng-click="inventory.delGame(item)" href="#">{{ item.name }}</a>
+      <a ng-repeat="item in inventory.owned track by item.id" class="item" ng-click="inventory.delGame(item)" href="#">{{ item.name }}</a>
 
       <br/>
 
       <div class="item item-divider">Todos los juegos</div>
-      <a ng-repeat="item in inventory.all" class="item" ng-click="inventory.addGame(item)" href="#">{{ item.name }}</a>
+      <a ng-repeat="item in inventory.desired track by item.id" class="item" ng-click="inventory.addGame(item)" href="#">{{ item.name }}</a>
 
     </div>
   </ion-content>

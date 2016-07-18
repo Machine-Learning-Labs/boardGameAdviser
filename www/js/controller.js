@@ -223,20 +223,12 @@
   function InventoryController(CONSTANTS, Data, Inventory, Utils, $analytics) {
 
     var vm = this;
-
-      vm.all = [];
-      vm.own = [];
+      vm.desired = [];
+      vm.owned = [];
       vm.addGame = addGame;
       vm.delGame = delGame;
 
     vm.all = Data.getGames();
-
-    // TODO 1 -> mix both db
-    // TODO 2 -> filter from recomendations
-    // TODO 3 -> control if select all
-
-    // TODO subir version
-    // TODO descomentar acceso al fs
 
     Inventory.getAllGamesSaved().then(function (saved) {
 
@@ -244,7 +236,9 @@
         throw "Not games loaded"
       }
 
-      vm.own = saved;
+      vm.owned = Utils._.uniq(saved)
+      vm.desired = Utils._.uniq(Utils._.differenceBy(vm.all, vm.owned,'id'));
+
     });
 
     $analytics.pageTrack('/inventory');
@@ -253,15 +247,16 @@
 
     function addGame(game) {
 
-      vm.own.push(game);
-      Utils._.pull(vm.all,game)
+      vm.owned.push(game);
+      Utils._.pull(vm.desired,game)
 
       Inventory.saveGame(game);
     }
 
     function delGame(game) {
-      vm.all.push(game);
-      Utils._.pull(vm.own,game)
+
+      vm.desired.push(game);
+      Utils._.pull(vm.owned,game)
 
       Inventory.eraseGame(game);
     }
