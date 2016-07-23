@@ -38,7 +38,7 @@
         {
           autosave: CONSTANTS.DB.AUTOSAVE,
           autosaveInterval: CONSTANTS.DB.INTERVAL,
-          //adapter: fsAdapter
+          adapter: fsAdapter
         });
 
       return getAllGamesSaved();
@@ -219,7 +219,7 @@
      * @returns {boolean}
      */
     function setBlackList(list) {
-      
+
       _blacklist = Utils._.map(list,"id");
       return _blacklist === list;
     }
