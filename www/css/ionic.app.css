@@ -9731,47 +9731,11 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
-/* when hiding the picture */
-.ng-hide-add {
-  animation: 0.5s lightSpeedOut ease; }
-
-/* when showing the picture */
-.ng-hide-remove {
-  animation: 0.5s flipInX ease; }
-
-.card .item {
-  background-color: #F5F5F5; }
-
-ion-content {
-  background-color: #FFF;
-  background-image: url("../img/background.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: bottom;
-  margin: 0 10px 0 10px; }
-
-.full-image {
-  max-width: 500px; }
-
-.has-footer {
-  bottom: 70px; }
-
 .question_title {
   text-transform: uppercase; }
 
-.videoWrapper {
-  position: relative;
-  padding-bottom: 56.25%;
-  /* 16:9 */
-  padding-top: 25px;
-  height: 0; }
-
-.videoWrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%; }
+.card .item {
+  background-color: #F5F5F5; }
 
 /* Styling an indeterminate progress bar */
 progress:not(value) {
@@ -9831,7 +9795,7 @@ progress[value]::-webkit-progress-value:after {
 /* Firefox provides a single pseudo class to style the progress element value and not for container. -moz-progress-bar */
 progress[value]::-moz-progress-bar {
   /* Gradient background with Stripes */
-  background-image: -moz-linear-gradient(135deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%), -moz-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.2)), -moz-linear-gradient(left, #09c, #f44);
+  background-image: -moz-linear-gradient(135deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%), -moz-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.2)), -moz-linear-gradient(left, #09c 20%, #f44 70%);
   background-size: 35px 20px, 100% 100%, 100% 100%;
   border-radius: 3px;
   /* Firefox doesn't support CSS3 keyframe animations on progress element. Hence, we did not include animate-stripes in this code block */ }
@@ -9862,11 +9826,46 @@ p[data-value]:after {
 
 .node-js::-webkit-progress-value {
   /* Gradient background with Stripes */
-  background-image: -webkit-linear-gradient(135deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%), -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #ef473a, #11c1f3); }
+  background-image: -webkit-linear-gradient(135deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%), -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #ef473a 20%, #11c1f3 70%); }
 
 .node-js::-moz-progress-bar {
   /* Gradient background with Stripes */
-  background-image: -moz-linear-gradient(135deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%), -moz-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #ef473a, #11c1f3); }
+  background-image: -moz-linear-gradient(135deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%), -moz-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #ef473a 20%, #11c1f3 70%); }
 
 /* Now we are good to duplicate html code for other skills and then add the css code for the new skill based on data-skill */
 /* THE END */
+.full-image {
+  max-width: 500px; }
+
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  /* 16:9 */
+  padding-top: 25px;
+  height: 0; }
+
+.videoWrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+/* when hiding the picture */
+.ng-hide-add {
+  animation: 0.5s lightSpeedOut ease; }
+
+/* when showing the picture */
+.ng-hide-remove {
+  animation: 0.5s flipInX ease; }
+
+ion-content {
+  background-color: #FFF;
+  background-image: url("../img/background.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+  margin: 0 10px 0 10px; }
+
+.has-footer {
+  bottom: 70px; }
