@@ -112,7 +112,6 @@
       getWeigths: getWeigths,
       getResponses:getResponses,
       getTrainingSet: getTrainingSet,
-      getAllQuestions:getAllQuestions,
       getPreviousQuestion:getPreviousQuestion,
       getQuestion:getQuestion
     }
@@ -264,14 +263,6 @@
       var allGames = Utils._.clone(_knowledge);
 
       return Utils._.map(allGames,function(item) { return {id:item.id,name:item.name}; });
-    }
-
-    /**
-     * Return all questions with candidate values instead labels
-     * @returns {Object}
-     */
-    function getAllQuestions() {
-      return Utils._.mapValues(_questions,function(value, key) { return _.map(value.replies, 'value'); });
     }
 
     /**
