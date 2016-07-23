@@ -222,8 +222,8 @@
    * @param $http
    * @constructor
    */
-  InventoryController.$inject = ['Data', 'Persistence', 'Utils', '$analytics'];
-  function InventoryController(Data, Persistence, Utils, $analytics) {
+  InventoryController.$inject = ['Data', 'Persistence', 'Utils', '$analytics', '$scope'];
+  function InventoryController(Data, Persistence, Utils, $analytics, $scope) {
 
     var vm = this;
       vm.desired = [];
@@ -244,6 +244,7 @@
 
     });
 
+    $scope.$on("$destroy", saveBlackList);
     $analytics.pageTrack('/inventory');
 
     ////////////
@@ -259,10 +260,15 @@
     function delGame(game) {
 
       vm.desired.push(game);
-      Utils._.pull(vm.owned,game)
+      Utils._.pull(vm.owned,game);
 
       Persistence.eraseGame(game);
     }
+
+    function saveBlackList() {
+      Data.setBlackList(vm.owned);
+    }
+
   }
 
 })();

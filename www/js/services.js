@@ -40,6 +40,8 @@
           autosaveInterval: CONSTANTS.DB.INTERVAL,
           //adapter: fsAdapter
         });
+
+      return getAllGamesSaved();
     }
 
     /**
@@ -100,13 +102,14 @@
     var _knowledge = {};
     var _questions = {};
     var _responses = {};
-    var blacklist = [];
+    var _blacklist = [];
     var KEYWORD_DISCARD =  CONSTANTS.KEYWORD_DISCARD;
 
     return {
       start: start,
       put:put,
       clear:clear,
+      setBlackList: setBlackList,
       getGame:getGame,
       getGames:getGames,
       getWeigths: getWeigths,
@@ -136,6 +139,8 @@
       },function(err) {
         defer.reject(0);
       });
+
+      // TODO qAll -> Load old games
 
       return defer.promise;
     }
@@ -188,13 +193,17 @@
     function getTrainingSet() {
 
       var reply = [];
+      var gamesFiltered = _.filter(_knowledge, function(game) {
+        return !_.includes(_blacklist, game.id)
+      })
+
       var minAgeFilter = "[?minedad=='"+Utils._.get(getResponses(), 'minedad')+"']";
       var minPlayersFilter = "[?minjugadores=='"+Utils._.get(getResponses(), 'minjugadores')+"']";
       var maxPlayersFilter = "[?maxjugadores=='"+Utils._.get(getResponses(), 'maxjugadores')+"']";
 
-      var opt1 = jmespath.search(_knowledge, minPlayersFilter + " \| " + minAgeFilter + " \| " + maxPlayersFilter);
-      var opt2 = jmespath.search(_knowledge, minPlayersFilter + " \| " + minAgeFilter);
-      var opt3 = jmespath.search(_knowledge, minPlayersFilter);
+      var opt1 = jmespath.search(gamesFiltered, minPlayersFilter + " \| " + minAgeFilter + " \| " + maxPlayersFilter);
+      var opt2 = jmespath.search(gamesFiltered, minPlayersFilter + " \| " + minAgeFilter);
+      var opt3 = jmespath.search(gamesFiltered, minPlayersFilter);
 
       if (opt1.length>=CONSTANTS.MAX_NUMBER_OF_SOLUTIONS)       { reply = opt1; }
       else if (opt2.length>=CONSTANTS.MAX_NUMBER_OF_SOLUTIONS)  { reply = opt2; }
@@ -202,6 +211,17 @@
       else                                                      { reply = Utils._.clone(_knowledge); }
 
       return reply;
+    }
+
+    /**
+     * Set the BlackList property
+     * @param list
+     * @returns {boolean}
+     */
+    function setBlackList(list) {
+      
+      _blacklist = Utils._.map(list,"id");
+      return _blacklist === list;
     }
 
     /**

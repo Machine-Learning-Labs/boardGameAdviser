@@ -26,7 +26,7 @@
         COL_NAME: 'games',
         PREFIX: {"prefix": "mordor"},
         AUTOSAVE: true,
-        INTERVAL: 1000
+        INTERVAL: 3000
       },
       AUTOSEND_SECONDS: 400,
       MIN_PERCENT_VALID: 42,
@@ -45,11 +45,16 @@
       $ionicLoading.show({ template: 'Cargando...' });
 
       // Initialize the database.
-      Persistence.initDB();
+      Persistence.initDB()
+        .then(function(gamesSaved) {
+          $log.info(gamesSaved.length + ' juegos en el inventario')
+          Data.setBlackList(gamesSaved);
+        });
 
+      // Get the data from internet or local
       Data.start()
         .then(function(res) {
-          $log.info(res + ' juegos cargados')
+          $log.info(res + ' juegos nuevos cargados')
           $ionicLoading.hide();
         })
         .catch(function(res) {
