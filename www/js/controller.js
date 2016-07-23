@@ -104,8 +104,8 @@
    * @param $timeout
    * @constructor
    */
-  QuestionController.$inject = ['CONSTANTS', 'Data', '$state', '$timeout', '$analytics'];
-  function QuestionController(CONSTANTS, Data, $state, $timeout, $analytics) {
+  QuestionController.$inject = ['CONSTANTS', 'Data', '$ionicScrollDelegate', '$state', '$timeout', '$analytics'];
+  function QuestionController(CONSTANTS, Data, $ionicScrollDelegate, $state, $timeout, $analytics) {
 
     var vm = this;
     vm.style = '';
@@ -146,10 +146,11 @@
 
       $timeout(function() {
 
-        Data.put(vm.currentQuestion.attr, vm.currentQuestion.reply);
-
+        $ionicScrollDelegate.scrollTop();
         vm.style = 'animated bounceInRight';
         vm.prematureFinish = (CONSTANTS.MIN_PERCENT_VALID<=vm.currentQuestion.percent);
+
+        Data.put(vm.currentQuestion.attr, vm.currentQuestion.reply);
         next();
 
       }, CONSTANTS.AUTOSEND_SECONDS);
