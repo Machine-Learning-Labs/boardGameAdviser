@@ -40,12 +40,12 @@
       NEWS_URL: 'http://www.mordorgames.es/category/noticias/feed/'
     })
 
-    .run(function($ionicPlatform, $ionicLoading, $log, Inventory, Data) {
+    .run(function($ionicPlatform, $ionicLoading, $log, Persistence, Data) {
 
       $ionicLoading.show({ template: 'Cargando...' });
 
       // Initialize the database.
-      Inventory.initDB();
+      Persistence.initDB();
 
       Data.start()
         .then(function(res) {

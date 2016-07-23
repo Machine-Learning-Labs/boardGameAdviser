@@ -129,13 +129,15 @@
       }
     }
 
+    // On swype RTL we discard
     function ignore() {
       vm.currentQuestion.reply = CONSTANTS.KEYWORD_DISCARD;
       save();
 
     }
 
-    // TODO finish this metohd
+    // On Swype LTR we go back
+    // TODO finish this method
     function previous() {
       vm.currentQuestion = Data.getPreviousQuestion(vm.currentQuestion.attr);
     }
@@ -219,8 +221,8 @@
    * @param $http
    * @constructor
    */
-  InventoryController.$inject = ['CONSTANTS', 'Data', 'Inventory', 'Utils', '$analytics'];
-  function InventoryController(CONSTANTS, Data, Inventory, Utils, $analytics) {
+  InventoryController.$inject = ['Data', 'Persistence', 'Utils', '$analytics'];
+  function InventoryController(Data, Persistence, Utils, $analytics) {
 
     var vm = this;
       vm.desired = [];
@@ -230,7 +232,7 @@
 
     vm.all = Data.getGames();
 
-    Inventory.getAllGamesSaved().then(function (saved) {
+    Persistence.getAllGamesSaved().then(function (saved) {
 
       if (vm.all.length===0) {
         throw "Not games loaded"
@@ -250,7 +252,7 @@
       vm.owned.push(game);
       Utils._.pull(vm.desired,game)
 
-      Inventory.saveGame(game);
+      Persistence.saveGame(game);
     }
 
     function delGame(game) {
@@ -258,7 +260,7 @@
       vm.desired.push(game);
       Utils._.pull(vm.owned,game)
 
-      Inventory.eraseGame(game);
+      Persistence.eraseGame(game);
     }
   }
 

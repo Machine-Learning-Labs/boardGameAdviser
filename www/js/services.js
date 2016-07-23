@@ -3,27 +3,25 @@
 
   angular
     .module('boardGameAdviser')
-    .factory('Inventory', Inventory)
+    .factory('Persistence', Persistence)
     .factory('Data', Data)
     .factory('Logic', Logic)
     .factory('Utils', Utils)
     .factory('$exceptionHandler', Errors );
 
-  // Inventory /////////////////////////////////////////////////////////////////////////////////////////////////////////
-  Inventory.$inject = ['CONSTANTS', '$q', 'Loki'];
-  function Inventory(CONSTANTS, $q, Loki) {
+  // Persistence ///////////////////////////////////////////////////////////////////////////////////////////////////////
+  Persistence.$inject = ['CONSTANTS', '$q', 'Loki'];
+  function Persistence(CONSTANTS, $q, Loki) {
 
     var _db;
     var _games;
 
-    var service = {
+    return {
       initDB: initDB,
       getAllGamesSaved: getAllGamesSaved,
       saveGame: saveGame,
       eraseGame: eraseGame
     };
-
-    return service;
 
     /////////////
 
@@ -42,7 +40,7 @@
           autosaveInterval: CONSTANTS.DB.INTERVAL,
           //adapter: fsAdapter
         });
-    };
+    }
 
     /**
      * Save a game
@@ -50,7 +48,7 @@
      */
     function saveGame(game) {
       _games.insert(game);
-    };
+    }
 
     /**
      * Delete a game
@@ -58,7 +56,7 @@
      */
     function eraseGame(game) {
       _games.remove(game);
-    };
+    }
 
     /**
      * Return all the save games
@@ -90,7 +88,7 @@
           resolve(_games.data);
         });
       });
-    };
+    }
 
   }
 
@@ -98,13 +96,14 @@
   Data.$inject = ['CONSTANTS', 'Utils', '$http', '$q'];
   function Data(CONSTANTS, Utils, $http, $q) {
 
-    var weigth = {};
-    var knowledge = {};
-    var questions = {};
-    var responses = {};
+    var _weigth = {};
+    var _knowledge = {};
+    var _questions = {};
+    var _responses = {};
+    var blacklist = [];
     var KEYWORD_DISCARD =  CONSTANTS.KEYWORD_DISCARD;
 
-    var service = {
+    return {
       start: start,
       put:put,
       clear:clear,
@@ -116,15 +115,12 @@
       getAllQuestions:getAllQuestions,
       getPreviousQuestion:getPreviousQuestion,
       getQuestion:getQuestion
-    };
-
-    return service;
+    }
 
     ////////////
 
     /**
      * Bootstrap the data capture
-     *
      * @returns {Promise}
      */
     function start() {
@@ -132,9 +128,9 @@
       var defer = $q.defer();
 
       loadTrainingSet().then(function(data) {
-        weigth = data.weigth;
-        knowledge = data.training;
-        questions = data.questions;
+        _weigth = data.weigth;
+        _knowledge = data.training;
+        _questions = data.questions;
 
         defer.resolve(data.training.length);
 
@@ -147,7 +143,6 @@
 
     /**
      * Get the tragining dataset
-     *
      * @returns Promise
      */
     function loadTrainingSet() {
@@ -198,14 +193,14 @@
       var minPlayersFilter = "[?minjugadores=='"+Utils._.get(getResponses(), 'minjugadores')+"']";
       var maxPlayersFilter = "[?maxjugadores=='"+Utils._.get(getResponses(), 'maxjugadores')+"']";
 
-      var opt1 = jmespath.search(knowledge, minPlayersFilter + " \| " + minAgeFilter + " \| " + maxPlayersFilter);
-      var opt2 = jmespath.search(knowledge, minPlayersFilter + " \| " + minAgeFilter);
-      var opt3 = jmespath.search(knowledge, minPlayersFilter);
+      var opt1 = jmespath.search(_knowledge, minPlayersFilter + " \| " + minAgeFilter + " \| " + maxPlayersFilter);
+      var opt2 = jmespath.search(_knowledge, minPlayersFilter + " \| " + minAgeFilter);
+      var opt3 = jmespath.search(_knowledge, minPlayersFilter);
 
       if (opt1.length>=CONSTANTS.MAX_NUMBER_OF_SOLUTIONS)       { reply = opt1; }
       else if (opt2.length>=CONSTANTS.MAX_NUMBER_OF_SOLUTIONS)  { reply = opt2; }
       else if (opt3.length>=CONSTANTS.MAX_NUMBER_OF_SOLUTIONS)  { reply = opt3; }
-      else                                                      { reply = Utils._.clone(knowledge); }
+      else                                                      { reply = Utils._.clone(_knowledge); }
 
       return reply;
     }
@@ -218,8 +213,8 @@
      */
     function put(key,val) {
 
-      responses[key] = val;
-      return responses.key == val;
+      _responses[key] = val;
+      return _responses.key === val;
     }
 
     /**
@@ -228,20 +223,19 @@
      */
     function clear() {
 
-      responses = null;
-      responses = {};
-      return _.isNull(responses);
+      _responses = null;
+      _responses = {};
+      return _.isNull(_responses);
     }
 
     /**
-     * Returns a clean copy of responses
+     * Returns a clean copy of responses with discard values filtered
      * @returns {*}
      */
     function getResponses() {
 
-      var reply = Utils._.clone(responses);
-      var responsesCopy = Utils._.pickBy(reply, function(value, key) { return value!==KEYWORD_DISCARD });
-      return responsesCopy;
+      var reply = Utils._.clone(_responses);
+      return Utils._.pickBy(reply, function(value, key) { return value!==KEYWORD_DISCARD });
     }
 
     /**
@@ -249,7 +243,7 @@
      * @returns {*}
      */
     function getWeigths() {
-      return Utils._.clone(weigth);
+      return Utils._.clone(_weigth);
     }
 
     /**
@@ -258,7 +252,7 @@
      * @returns {*}
      */
     function getGame(id) {
-      return Utils.jmespath.search(knowledge,"[?id=='"+id+"']");
+      return Utils.jmespath.search(_knowledge,"[?id=='"+id+"']");
     }
 
     /**
@@ -267,9 +261,9 @@
      */
     function getGames() {
 
-      var allGames = Utils._.clone(knowledge);
+      var allGames = Utils._.clone(_knowledge);
 
-      return Utils._.map(allGames,function(item) { return {id:item.id,name:item.name}; });;
+      return Utils._.map(allGames,function(item) { return {id:item.id,name:item.name}; });
     }
 
     /**
@@ -277,7 +271,7 @@
      * @returns {Object}
      */
     function getAllQuestions() {
-      return Utils._.mapValues(questions,function(value, key) { return _.map(value.replies, 'value'); });
+      return Utils._.mapValues(_questions,function(value, key) { return _.map(value.replies, 'value'); });
     }
 
     /**
@@ -287,8 +281,8 @@
     function getQuestion() {
 
       var position = "minjugadores";
-      var options = Utils._.keys(questions);
-      var previous = Utils._.keys(responses);
+      var options = Utils._.keys(_questions);
+      var previous = Utils._.keys(_responses);
 
       switch(previous.length) {
         case 0: position = "minjugadores"; break;
@@ -297,7 +291,7 @@
         default: position = Utils._.sample(Utils._.difference(options,previous));
       }
 
-      var candidate = questions[position];
+      var candidate = _questions[position];
 
       var reply = {};
       reply = Utils._.merge(reply,candidate);
