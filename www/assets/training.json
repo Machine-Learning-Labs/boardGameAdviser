@@ -1,5 +1,95 @@
 {
   "questions": {
+    "minjugadores": {
+      "type": "text",
+      "text": "¿Cuantos jugadores mínimo vais a jugar?",
+      "replies": [
+        {
+          "label": "1 jugador",
+          "value": "1"
+        },
+        {
+          "label": "2 jugadores",
+          "value": "2"
+        },
+        {
+          "label": "3 jugadores",
+          "value": "3"
+        },
+        {
+          "label": "4 jugadores",
+          "value": "4"
+        },
+        {
+          "label": "5 jugadores",
+          "value": "5"
+        },
+        {
+          "label": "Muchos, más de 5",
+          "value": "muchos"
+        }
+      ]
+    },
+    "maxjugadores": {
+      "type": "text",
+      "text": "¿Cuantos jugadores máximo vais a jugar?",
+      "replies": [
+        {
+          "label": "1 jugador",
+          "value": "1"
+        },
+        {
+          "label": "2 jugadores",
+          "value": "2"
+        },
+        {
+          "label": "3 jugadores",
+          "value": "3"
+        },
+        {
+          "label": "4 jugadores",
+          "value": "4"
+        },
+        {
+          "label": "5 jugadores",
+          "value": "5"
+        },
+        {
+          "label": "6 jugadores",
+          "value": "6"
+        },
+        {
+          "label": "Muchos, más de 6",
+          "value": "muchos"
+        }
+      ]
+    },
+    "minedad": {
+      "type": "text",
+      "text": "¿Para que edad mínima quieres el juego?",
+      "replies": [
+        {
+          "label": "Son pequeños, de 4 a 6 añitos",
+          "value": "4"
+        },
+        {
+          "label": "Ya son mas mayores, a partir de 8",
+          "value": "8"
+        },
+        {
+          "label": "Son unos jugones, a partir de 10",
+          "value": "10"
+        },
+        {
+          "label": "Busco un juego un poco mas complicado, a partir de 12",
+          "value": "12"
+        },
+        {
+          "label": "Todos adultos",
+          "value": "14"
+        }
+      ]
+    },
     "complejidad": {
       "type": "text",
       "text": "¿Que nivel de complejidad quieres en el juego?",
@@ -286,96 +376,6 @@
         }
       ]
     },
-    "minjugadores": {
-      "type": "text",
-      "text": "¿Cuantos jugadores mínimo vais a jugar?",
-      "replies": [
-        {
-          "label": "1 jugador",
-          "value": "1"
-        },
-        {
-          "label": "2 jugadores",
-          "value": "2"
-        },
-        {
-          "label": "3 jugadores",
-          "value": "3"
-        },
-        {
-          "label": "4 jugadores",
-          "value": "4"
-        },
-        {
-          "label": "5 jugadores",
-          "value": "5"
-        },
-        {
-          "label": "Muchos, más de 5",
-          "value": "muchos"
-        }
-      ]
-    },
-    "maxjugadores": {
-      "type": "text",
-      "text": "¿Cuantos jugadores máximo vais a jugar?",
-      "replies": [
-        {
-          "label": "1 jugador",
-          "value": "1"
-        },
-        {
-          "label": "2 jugadores",
-          "value": "2"
-        },
-        {
-          "label": "3 jugadores",
-          "value": "3"
-        },
-        {
-          "label": "4 jugadores",
-          "value": "4"
-        },
-        {
-          "label": "5 jugadores",
-          "value": "5"
-        },
-        {
-          "label": "6 jugadores",
-          "value": "6"
-        },
-        {
-          "label": "Muchos, más de 6",
-          "value": "muchos"
-        }
-      ]
-    },
-    "minedad": {
-      "type": "text",
-      "text": "¿Para que edad mínima quieres el juego?",
-      "replies": [
-        {
-          "label": "Son pequeños, de 4 a 6 añitos",
-          "value": "4"
-        },
-        {
-          "label": "Ya son mas mayores, a partir de 8",
-          "value": "8"
-        },
-        {
-          "label": "Son unos jugones, a partir de 10",
-          "value": "10"
-        },
-        {
-          "label": "Busco un juego un poco mas complicado, a partir de 12",
-          "value": "12"
-        },
-        {
-          "label": "Todos adultos",
-          "value": "14"
-        }
-      ]
-    },
     "atmosfera": {
       "type": "text",
       "text": "¿Que ambientación buscas en los juegos?",
@@ -452,6 +452,7 @@
     "ocupacion": 0.1,
     "infantil": 0.4
   },
+
   "training": [
     {
       "id": "824968717110",
@@ -1162,56 +1163,6 @@
       "ocupacion": "normal"
     },
     {
-      "id": "8436017220582",
-      "name": "El Hobbit",
-      "description": "Reiner Knizia el aclamado autor del best seller El señor de los anillos ha vuelto a trabajar en un juego basado en la obra de Tolkien.",
-      "prize": "normal",
-      "url": "/juegos-de-mesa/85-el-hobbit-8436017220582.html",
-      "adictivo": "3",
-      "complejidad": "3",
-      "duracion": "60",
-      "educativo": "1",
-      "familia": "3",
-      "humor": "1",
-      "infantil": "2",
-      "picaresca": "2",
-      "puteo": "1",
-      "rapidez": "2",
-      "suerte": "2",
-      "atmosfera": "fantasia",
-      "minjugadores": "2",
-      "maxjugadores": "5",
-      "minedad": "10",
-      "modojuego": "cooperativo",
-      "tipojuego": "gestion",
-      "ocupacion": "normal"
-    },
-    {
-      "id": "8436017221848",
-      "name": "El Hobbit El oro encantado",
-      "description": "En este juego. ambientado en la famosa novela de J.R.R. Tolkien los dos jugadores compiten por ser los primeros en derrotar a la mayor cantidad de oponentes y por abrirse camino hacia el codiciado tesoro del terrible Dragón Smaug.",
-      "prize": "barato",
-      "url": "/juegos-de-mesa/86-el-hobbit-el-oro-encantado-8436017221848.html",
-      "adictivo": "3",
-      "complejidad": "3",
-      "duracion": "30",
-      "educativo": "1",
-      "familia": "3",
-      "humor": "1",
-      "infantil": "2",
-      "picaresca": "4",
-      "puteo": "4",
-      "rapidez": "3",
-      "suerte": "3",
-      "atmosfera": "discard",
-      "minjugadores": "2",
-      "maxjugadores": "2",
-      "minedad": "8",
-      "modojuego": "competitivo",
-      "tipojuego": "invadir",
-      "ocupacion": "small"
-    },
-    {
       "id": "8435407603691",
       "name": "Enigmas absurdos",
       "description": "¡Con Enigmas absurdos vuélvete loco y diviértete mientras resuelves los enigmas con las explicaciones más absurdas que se te ocurran!",
@@ -1256,7 +1207,7 @@
       "atmosfera": "discard",
       "minjugadores": "2",
       "maxjugadores": "6",
-      "minedad": "6",
+      "minedad": "4",
       "modojuego": "competitivo",
       "tipojuego": "gestion",
       "ocupacion": "small"
@@ -1357,7 +1308,7 @@
       "atmosfera": "discard",
       "minjugadores": "2",
       "maxjugadores": "4",
-      "minedad": "6",
+      "minedad": "4",
       "modojuego": "competitivo",
       "tipojuego": "invadir",
       "ocupacion": "small"
@@ -1485,7 +1436,7 @@
       "atmosfera": "discard",
       "minjugadores": "muchos",
       "maxjugadores": "3",
-      "minedad": "6",
+      "minedad": "4",
       "modojuego": "competitivo",
       "tipojuego": "imaginar",
       "ocupacion": "normal"
@@ -1818,7 +1769,7 @@
       "atmosfera": "medieval",
       "minjugadores": "2",
       "maxjugadores": "4",
-      "minedad": "6",
+      "minedad": "4",
       "modojuego": "competitivo",
       "tipojuego": "investigar",
       "ocupacion": "normal"
@@ -2324,7 +2275,7 @@
       "atmosfera": "discard",
       "minjugadores": "2",
       "maxjugadores": "6",
-      "minedad": "6",
+      "minedad": "4",
       "modojuego": "competitivo",
       "tipojuego": "pensar",
       "ocupacion": "small"
@@ -2475,7 +2426,7 @@
       "atmosfera": "discard",
       "minjugadores": "1",
       "maxjugadores": "8",
-      "minedad": "6",
+      "minedad": "4",
       "modojuego": "competitivo",
       "tipojuego": "imaginar",
       "ocupacion": "small"
@@ -2830,7 +2781,7 @@
       "atmosfera": "medieval",
       "minjugadores": "2",
       "maxjugadores": "4",
-      "minedad": "6",
+      "minedad": "4",
       "modojuego": "competitivo",
       "tipojuego": "pensar",
       "ocupacion": "normal"
@@ -2908,7 +2859,7 @@
       "atmosfera": "discard",
       "minjugadores": "2",
       "maxjugadores": "6",
-      "minedad": "6",
+      "minedad": "4",
       "modojuego": "competitivo",
       "tipojuego": "pensar",
       "ocupacion": "normal"
