@@ -10,3 +10,4 @@ plugins/
 www/lib/
 
 releases/
+*.apk

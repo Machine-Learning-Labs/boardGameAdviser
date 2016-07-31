@@ -38,7 +38,7 @@
         {
           autosave: CONSTANTS.DB.AUTOSAVE,
           autosaveInterval: CONSTANTS.DB.INTERVAL,
-          adapter: fsAdapter
+          //adapter: fsAdapter
         });
 
       return getAllGamesSaved();
