@@ -193,22 +193,28 @@
     function getTrainingSet() {
 
       var reply = [];
+      var responsesCached = getResponses();
       var gamesFiltered = _.filter(_knowledge, function(game) {
         return !_.includes(_blacklist, game.id)
       })
 
-      var minAgeFilter = "[?minedad=='"+Utils._.get(getResponses(), 'minedad')+"']";
-      var minPlayersFilter = "[?minjugadores=='"+Utils._.get(getResponses(), 'minjugadores')+"']";
-      var maxPlayersFilter = "[?maxjugadores=='"+Utils._.get(getResponses(), 'maxjugadores')+"']";
+      var minAgeFilter = "[?minedad=='"+Utils._.get(responsesCached, 'minedad')+"']";
+      var minPlayersFilter = "[?minjugadores=='"+Utils._.get(responsesCached, 'minjugadores')+"']";
+      var maxPlayersFilter = "[?maxjugadores<=`"+Utils._.get(responsesCached, 'maxjugadores')+"`]";
 
-      var opt1 = jmespath.search(gamesFiltered, minPlayersFilter + " \| " + minAgeFilter + " \| " + maxPlayersFilter);
-      var opt2 = jmespath.search(gamesFiltered, minPlayersFilter + " \| " + minAgeFilter);
-      var opt3 = jmespath.search(gamesFiltered, minPlayersFilter);
+      //jmespath.search(gamesFiltered,"[?minedad=='6'] \| [?minjugadores=='2'] \| [?maxjugadores<=`5`]")
+      var opt1 = jmespath.search(gamesFiltered, minAgeFilter + " \| " + minPlayersFilter + " \| " + maxPlayersFilter);
+      var opt2 = jmespath.search(gamesFiltered, minAgeFilter + " \| " + minPlayersFilter);
+      var opt3 = jmespath.search(gamesFiltered, minAgeFilter);
 
       if (opt1.length>=CONSTANTS.MAX_NUMBER_OF_SOLUTIONS)       { reply = opt1; }
       else if (opt2.length>=CONSTANTS.MAX_NUMBER_OF_SOLUTIONS)  { reply = opt2; }
       else if (opt3.length>=CONSTANTS.MAX_NUMBER_OF_SOLUTIONS)  { reply = opt3; }
       else                                                      { reply = Utils._.clone(_knowledge); }
+
+      //console.log('filtros: minEdad + minJugadores + maxJugadores: ' + opt1.length)
+      //console.log('filtros: minEdad y minJugadores dan: ' + opt2.length)
+      //console.log('filtro: minEdad dan: ' + opt3.length)
 
       return reply;
     }
@@ -436,15 +442,22 @@
 
         Utils._.forEach(a, function(value,key) {
 
-          try {
-            if (typeof(a[key])==='string') {
+          if (Utils._.includes(CONSTANTS.ATTR_TO_IGNORE,key))
+            return;
 
+          try {
+
+            // String comparison based on position (turns on position based)
+            if (typeof(a[key])==='string') {
               var aStringified = _.indexOf(CONSTANTS.STRING_ATTR_MAP[key], a[key]);
               var bStringified = _.indexOf(CONSTANTS.STRING_ATTR_MAP[key], b[key]);
               distance += Math.abs( aStringified - bStringified ) * weigths[key];
+
+            // Numeric Euclidean Comparison
             } else {
               distance += Math.abs( a[key] - b[key] ) * weigths[key];
             }
+
           } catch(err) {
             distance += weigths[key] || 0;
           }
@@ -456,6 +469,8 @@
 
       var tree = new Utils.kdTree(training, similarity, attrs);
       var conclusion = tree.nearest(responses, CONSTANTS.MAX_NUMBER_OF_SOLUTIONS);
+
+      console.log(tree.balanceFactor());
 
       var Games = Utils._.map(Utils._.sortBy(conclusion,1),0);
       Games = Utils._.map(Games,'id');

@@ -14,12 +14,12 @@
       DEFAULT_ENGINE: 'kdTree', /* id3 OR randomForest OR kdTree */
       MAX_NUMBER_OF_SOLUTIONS: 3,
       KEYWORD_DISCARD: 'discard',
-      ATTR_TO_IGNORE : ['id','name','description', 'prize', 'url', 'image', 'guide'],
+      ATTR_TO_IGNORE : ['id','name','description', 'prize', 'url', 'tutorial','popular'],
       STRING_ATTR_MAP: {
-        modojuego:["competitivo","mixto","cooperativo"],
-        tipojuego:["investigar", "agilizar", "imaginar","rolear", "apostar","gestion","invadir"],
-        atmosfera: ["discard", "ciencia", "fantasia","historic", "medieval","zombies"],
-        ocupacion:["small", "normal","large"]
+        minjugadores:["2","3","4","5","6","7","8"],
+        maxjugadores:["2","3","4","5","6","7","8","9","10","12","14","16","18","20","22","24"],
+        minedad:["6","8","10","14"],
+        tipojuego:["apostar", "gestion", "invadir", "investigar", "imaginar", "pensar", "agilizar"]
       },
       DB: {
         DB_NAME: 'gamesDB',
@@ -28,8 +28,8 @@
         AUTOSAVE: true,
         INTERVAL: 3000
       },
-      AUTOSEND_SECONDS: 400,
-      MIN_PERCENT_VALID: 42,
+      AUTOSEND_SECONDS: 250,
+      MIN_PERCENT_VALID: 35,
       URL_LOCAL_TRAINING_SET: './assets/training.json',
       URL_REMOTE_TRAINING_SET: 'http://www.mordorgames.es/datos/',
       URL_IMAGES: 'http://www.mordorgames.es/datos/images/',

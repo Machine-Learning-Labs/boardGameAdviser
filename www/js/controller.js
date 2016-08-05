@@ -148,7 +148,7 @@
 
         $ionicScrollDelegate.scrollTop();
         vm.style = 'animated bounceInRight';
-        vm.prematureFinish = (CONSTANTS.MIN_PERCENT_VALID<=vm.currentQuestion.percent);
+        vm.prematureFinish = CONSTANTS.MIN_PERCENT_VALID<=vm.currentQuestion.percent;
 
         Data.put(vm.currentQuestion.attr, vm.currentQuestion.reply);
         next();
