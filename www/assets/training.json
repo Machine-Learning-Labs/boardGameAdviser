@@ -182,24 +182,6 @@
         }
       ]
     },
-    "educativo": {
-      "type": "text",
-      "text": "¿Quieres que tenga algo educativo el juego?",
-      "replies": [
-        {
-          "label": "No, lo que quiero es jugar",
-          "value": 1
-        },
-        {
-          "label": "Si tiene algo mejor",
-          "value": 2
-        },
-        {
-          "label": "Sí, me gusta aprender cosas mientras juego",
-          "value": 3
-        }
-      ]
-    },
     "picaresca": {
       "type": "text",
       "text": "¿Quieres que la astucia importe en el juego?",
@@ -424,13 +406,12 @@
     "picaresca": 0.8,
     "tipojuego": 0.7,
     "complejidad": 0.6,
-    "rapidez": 0.5,
+    "suerte": 0.5,
     "duracion": 0.4,
     "humor": 0.4,
     "infantil": 0.4,
-    "suerte": 0.3,
-    "educativo": 0.2,
-    "ocupacion": 0.1
+    "rapidez": 0.3,
+    "ocupacion": 0.2
   },
   "training": [
     {
@@ -3157,7 +3138,7 @@
       "url": "/juegos-de-mesa/260-zombies-15-8437007925517.html",
       "adictivo": "4",
       "complejidad": "3",
-      "duracion": "15",
+      "duracion": "20",
       "educativo": "1",
       "familia": "2",
       "humor": "2",
