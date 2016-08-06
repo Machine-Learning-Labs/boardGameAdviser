@@ -19,7 +19,7 @@
         minjugadores:["2","3","4","5","6","7","8"],
         maxjugadores:["2","3","4","5","6","7","8","9","10","12","14","16","18","20","22","24"],
         minedad:["6","8","10","14"],
-        tipojuego:["apostar", "gestion", "invadir", "investigar", "imaginar", "pensar", "agilizar"]
+        tipojuego:["apostar", "gestion", "invadir", "pensar", "investigar", "imaginar", "agilizar"]
       },
       DB: {
         DB_NAME: 'gamesDB',
