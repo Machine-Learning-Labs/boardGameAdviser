@@ -1,4 +1,5 @@
 # https://stackoverflow.com/questions/34713765/github-changes-repository-to-wrong-language
+#*.* linguist-language=Javascript
 
-*.* linguist-language=Javascript
-
+scss/* linguist-vendored
+www/css/* linguist-vendored
