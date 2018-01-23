@@ -1,2 +1,4 @@
-scss/* linguist-vendored
-www/css/* linguist-vendored
+# https://stackoverflow.com/questions/34713765/github-changes-repository-to-wrong-language
+
+* linguist-vendored
+*.js linguist-vendored=false
