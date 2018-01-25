@@ -65,11 +65,12 @@ Note: Remember to add the different platforms (ios and/or android) to produce th
 ## Android Permissions
 
 At time of develop this app, these permissions were required.
-
+````html
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+````
 
 ## License
 
