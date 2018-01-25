@@ -56,11 +56,11 @@ Follow the ionic instructions.
 Note: Remember to add the different platforms (ios and/or android) to produce the executable files (ipa or apk). Use the ionic tutorial for that.
 
 ## Plugins Needed
-cordova plugin add cordova-plugin-splashscreen
-cordova plugin add cordova-plugin-statusbar
-cordova plugin add ionic-plugin-keyboard
-cordova plugin add cordova-plugin-device
-cordova plugin add cordova-plugin-whitelist
+* cordova plugin add cordova-plugin-splashscreen
+* cordova plugin add cordova-plugin-statusbar
+* cordova plugin add ionic-plugin-keyboard
+* cordova plugin add cordova-plugin-device
+* cordova plugin add cordova-plugin-whitelist
 
 ## Android Permissions
 
@@ -78,6 +78,12 @@ At time of develop this app, these permissions were required.
 * The games and trademarks mentioned in database are property of their legitimes propietaries and are not related in any way with us. The opinions expressed here are based on our own conclusions as player and are only destinated to offer recomendations oriented to maximize the fun.
 
 Feel free to make a Fork & PR and evolve it.
+
+## Contributors
+
+Special thanks to:
+* [tludmetal](https://github.com/tludmetal), helping to select and tuning the algorithms.
+* [mbarsil](https://github.com/mbarsil), for his shellscript to automate android build.
 
 ### Possible Improvements
 
